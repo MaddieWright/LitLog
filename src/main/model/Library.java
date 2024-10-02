@@ -13,7 +13,7 @@ public class Library {
 
     // MODIFIES: this
     // EFFECTS: adds a new book to the collection of books
-    public void addBook(String title, String author, String genre) {
+    public void addBook(Book book) {
         // stub
     }
 

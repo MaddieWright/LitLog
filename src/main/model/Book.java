@@ -38,13 +38,13 @@ public class Book {
     }
 
     // Returns rating of book
-    public void getRating() {
-        // stub
+    public int getRating() {
+        return 0;
     }
 
     // Returns review of book
-    public void getReview() {
-        // stub
+    public String getReview() {
+        return null;
     }
 
     // MODIFIES: this
