@@ -14,74 +14,79 @@ public class Book {
     // EFFECTS: creates a book with given name, author, genre.
     // initializes the reading status as "not started", and sets rating and review to default values.
     public Book(String title, String author, String genre) {
-       // stub
+       this.title = title;
+       this.author = author;
+       this.genre = genre;
+       this.readingStatus = "not started";  // defualt status
+       this.rating = -1;                    // default for rating value
+       this.review = "";                    // default epmty review
     }
 
     //Returns title of book
     public String getTitle() {
-        return null; // stub
+        return this.title;
     }
 
     // Returns genre of book
     public String getGenre() {
-        return null; //stub
+        return this.genre;
     }
 
     // Returns author of book
     public String getAuthor() {
-        return null; //stub
+        return this.author;
     }
 
     // Returns reading status of book
     public String getReadingStatus() {
-        return null; //stub
+        return this.readingStatus;
     }
 
     // Returns rating of book
     public int getRating() {
-        return 0;
+        return this.rating;
     }
 
     // Returns review of book
     public String getReview() {
-        return null;
+        return this.review;
     }
 
     // MODIFIES: this
     // EFFECTS: changes the title of book
-    public void setTitle(String genre) {
-        // stub
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     // MODIFIES: this
     // EFFECTS: changes the genre of book
     public void setGenre(String genre) {
-        // stub
+        this.genre = genre;
     }
 
     // MODIFIES: this
     // EFFECTS: changes the author of book
-    public void setAuthor(String auhtor) {
-        // stub
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     // REQUIRES: status to be one of: "not started", "started", or "completed"
     // MODIFIES: this
     // EFFECTS: changes the reading status of book
     public void setReadingStatus(String readingStatus) {
-        // stub
+        this.readingStatus = readingStatus;
     }
 
     // MODIFIES: this
     // EFFECTS: sets the review of book
     public void setReview(String review) {
-        // stub
+        this.review = review;
     }
 
     // REQUIRES: rating of book to be between 1 and 5
     // MODIFIES: this
     // EFFECTS: sets the rating of book
     public void setRating(int rating) {
-        // stub
+        this.rating = rating;
     }
 }
