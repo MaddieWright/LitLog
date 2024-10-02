@@ -7,8 +7,8 @@ This application is designed for avid readers, book collecters, or anyone who wa
 
 ## User Stories
 Some features and specific tasks I would like to accomplish as a **user** with this application are:
-- As a **user**, I want to be able to add a new Book to my Library and specify the title, author, genre, and reading status.
-- As a **user**, I want to be able to view a list of all books in my library, sorted by reading status.
+- As a **user**, I want to be able to add a new Book to my Library and specify the title, author, and genre.
+- As a **user**, I want to be able to view a list of all books in my library.
 - As a **user**, I want to be able to mark a book as completed and add a rating with a review.
 - As a **user**, I want to be able to categorize books by genre or author for easy seraching.
 - As a **user**, I want to to be able to remove or edit books in my library.
