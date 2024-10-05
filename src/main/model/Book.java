@@ -2,27 +2,28 @@ package model;
 
 // Represents a Book having a title, author, genre, reading status, rating, and review
 public class Book {
-    
-    String title;           // Book title
-    String author;          // Book author
-    String genre;           // Book genre
-    String readingStatus;   // Book reading status ("not started", "started", "completed")
-    int rating;             // Book user rating (scale 1 to 5)
-    String review;          // Book user review
+
+    String title; // Book title
+    String author; // Book author
+    String genre; // Book genre
+    String readingStatus; // Book reading status ("not started", "started", "completed")
+    int rating; // Book user rating (scale 1 to 5)
+    String review; // Book user review
 
     // Constructs a book
     // EFFECTS: creates a book with given name, author, genre.
-    // initializes the reading status as "not started", and sets rating and review to default values.
+    // initializes the reading status as "not started", and sets rating and review
+    // to default values.
     public Book(String title, String author, String genre) {
-       this.title = title;
-       this.author = author;
-       this.genre = genre;
-       this.readingStatus = "not started";  // defualt status
-       this.rating = -1;                    // default for rating value
-       this.review = "";                    // default epmty review
+        this.title = title;
+        this.author = author;
+        this.genre = genre;
+        this.readingStatus = "not started"; // defualt status
+        this.rating = -1; // default for rating value
+        this.review = ""; // default epmty review
     }
 
-    //Returns title of book
+    // Returns title of book
     public String getTitle() {
         return this.title;
     }
@@ -96,7 +97,7 @@ public class Book {
         String status = this.getReadingStatus();
         String review = this.getReview();
         int rating = this.getRating();
-        return "Title: " + title + ", Author: " + author + ", Genre: " + genre + 
-               ", Status: " + status + review + rating;
+        return "Title: " + title + ", Author: " + author + ", Genre: " + genre
+                + ", Status: " + status + review + rating;
     }
 }

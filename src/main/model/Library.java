@@ -32,8 +32,9 @@ public class Library {
     public List<Book> findBookByGenre(String genre) {
         List<Book> genreList = new ArrayList<>();
         for (Book book : bookList) {
-            if (book.getGenre().equals(genre))
+            if (book.getGenre().equals(genre)) {
                 genreList.add(book);
+            }
         }
 
         return genreList;
@@ -43,8 +44,9 @@ public class Library {
     public List<Book> findBookByAuthor(String author) {
         List<Book> authorList = new ArrayList<>();
         for (Book book : bookList) {
-            if (book.getAuthor().equals(author))
+            if (book.getAuthor().equals(author)) {
                 authorList.add(book);
+            }
         }
 
         return authorList;
