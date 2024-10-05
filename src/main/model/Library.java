@@ -49,4 +49,9 @@ public class Library {
 
         return authorList;
     }
+
+    // Returns list of books in library size
+    public int getSize() {
+        return bookList.size();
+    }
 }
