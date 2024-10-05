@@ -4,7 +4,7 @@ import java.util.*;
 
 //A representation of a library containing a collection of books
 public class Library {
-    private  List<Book> bookList;
+    private List<Book> bookList;
 
     // Constructs an empty collection of books
     public Library() {
@@ -33,7 +33,7 @@ public class Library {
         List<Book> genreList = new ArrayList<>();
         for (Book book : bookList) {
             if (book.getGenre().equals(genre))
-            genreList.add(book);
+                genreList.add(book);
         }
 
         return genreList;
@@ -44,7 +44,7 @@ public class Library {
         List<Book> authorList = new ArrayList<>();
         for (Book book : bookList) {
             if (book.getAuthor().equals(author))
-            authorList.add(book);
+                authorList.add(book);
         }
 
         return authorList;
@@ -53,5 +53,22 @@ public class Library {
     // Returns list of books in library size
     public int getSize() {
         return bookList.size();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: edits book in library given by user
+    public void editBook(String currentTitle, String newTitle, String newAuthor,
+            String newGenre, int newRating, String newReview) {
+        for (Book book : bookList) {
+            if (book.getTitle().equalsIgnoreCase(currentTitle)) {
+                book.setTitle(newTitle);
+                book.setAuthor(newAuthor);
+                book.setGenre(newGenre);
+                book.setRating(newRating);
+                book.setReview(newReview);
+                System.out.println(currentTitle + " has been updated!");
+                return;
+            }
+        }
     }
 }
