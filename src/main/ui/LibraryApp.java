@@ -119,13 +119,8 @@ public class LibraryApp {
         String command = null;
 
         System.out.println("\n -------- Updating Book Status --------");
-        System.out.println("\n Enter title of book to be updated: ");
-        String title = input.toString();
 
-        if (title.isEmpty()) {
-            System.out.println("\n Title is required!");
-            return;
-        }
+        String title = checkTitle();
 
         System.out.println("\n Select from: ");
         System.out.println("\t c --> Mark book as completed and add rating and review");
@@ -150,7 +145,6 @@ public class LibraryApp {
         } else {
             System.out.println("Selection not valid...");
         }
-
     }
 
     // MODIFIES: this
@@ -165,19 +159,15 @@ public class LibraryApp {
             if (bookTitle.equalsIgnoreCase(title)) {
                 book.setReadingStatus("completed");
 
-                while (true) {
-                    System.out.println("\n Enter rating for book: ");
-                    String userRating = input.toString();
-                    rating = Integer.parseInt(userRating);
+                System.out.println("\n Enter rating for book: ");
+                String userRating = input.toString();
+                rating = Integer.parseInt(userRating);
 
-                    if (rating < 1 || rating > 5) {
-                        System.out.println("\n Not a valid rating (rate from 1 - 5)");
-                    } else {
-                        break;
-                    }
+                if (rating < 1 || rating > 5) {
+                    System.out.println("\n Not a valid rating (rate from 1 - 5)");
+                } else {
+                    book.setRating(rating);
                 }
-
-                book.setRating(rating);
 
                 System.out.println("\n Enter review for book: ");
                 String review = input.toString();
@@ -239,13 +229,9 @@ public class LibraryApp {
     private void doEditBook() {
         String command = null;
 
-        System.out.println("\n -------- Editing a Book --------");   
-        System.out.println("Enter current title of book: ");
-        String title = input.toString();
-
-        if (title.isEmpty()) {
-            System.out.println("Title is required.");
-        }
+        System.out.println("\n -------- Editing a Book --------");
+        
+        String title = checkTitle();
 
         System.out.println("Would you like to delete (d) book or edit (e) this book?");
         command = input.next();
@@ -255,7 +241,7 @@ public class LibraryApp {
             for (int i = 0; i < library.getSize(); i++) {
                 book.equals(library.getBooks().get(i));
                 String bookTitle = book.getTitle();
-    
+
                 if (bookTitle.equalsIgnoreCase(title)) {
                     doRemoveBook(book);
                 } else {
@@ -266,7 +252,7 @@ public class LibraryApp {
             for (int i = 0; i < library.getSize(); i++) {
                 book.equals(library.getBooks().get(i));
                 String bookTitle = book.getTitle();
-    
+
                 if (bookTitle.equalsIgnoreCase(title)) {
                     System.out.println("Enter new title or leave blank to be unchanged: ");
                     String newTitle = input.toString();
@@ -301,11 +287,23 @@ public class LibraryApp {
         } else {
             System.out.println("Selection not valid...");
         }
-     }
+    }
 
     // MODIFIES: this
     // EFFECTS: removes book from library
     private void doRemoveBook(Book book) {
         library.removeBook(book);
+    }
+
+    // EFFECTS: checks title of book user wants and returns title of book
+    private String checkTitle() {
+        System.out.println("\n Enter title of book: ");
+        String title = input.toString();
+
+        if (title.isEmpty()) {
+            System.out.println("\n Title is required!");
+        }
+
+        return title;
     }
 }
