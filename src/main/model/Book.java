@@ -89,4 +89,14 @@ public class Book {
     public void setRating(int rating) {
         this.rating = rating;
     }
+
+    // Override toString() for displaying book details
+    @Override
+    public String toString() {
+        String status = getReadingStatus();
+        String review = getReview();
+        int rating = getRating();
+        return "Title: " + title + ", Author: " + author + ", Genre: " + genre + 
+               ", Status: " + status + review + rating;
+    }
 }
