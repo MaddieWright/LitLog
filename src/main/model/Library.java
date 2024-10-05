@@ -4,7 +4,7 @@ import java.util.*;
 
 //A representation of a library containing a collection of books
 public class Library {
-    private List<Book> bookList;
+    private  List<Book> bookList;
 
     // Constructs an empty collection of books
     public Library() {
@@ -31,8 +31,8 @@ public class Library {
     // Returns a list of books in the given genre
     public List<Book> findBookByGenre(String genre) {
         List<Book> genreList = new ArrayList<>();
-        for(Book book : bookList) {
-            if(book.getGenre().equals(genre));
+        for (Book book : bookList) {
+            if (book.getGenre().equals(genre))
             genreList.add(book);
         }
 
@@ -42,8 +42,8 @@ public class Library {
     // Returns a list of books by the given auhtor
     public List<Book> findBookByAuthor(String author) {
         List<Book> authorList = new ArrayList<>();
-        for(Book book : bookList) {
-            if(book.getGenre().equals(author));
+        for (Book book : bookList) {
+            if (book.getAuthor().equals(author))
             authorList.add(book);
         }
 
