@@ -20,7 +20,7 @@ public class TestBook {
         assertEquals("Fantasy", testBook.getGenre());
         assertEquals("not started", testBook.getReadingStatus());
         assertEquals(-1, testBook.getRating());
-        assertEquals(null, testBook.getReview());
+        assertEquals("", testBook.getReview());
     }
 
     // Test Setters/Getters
