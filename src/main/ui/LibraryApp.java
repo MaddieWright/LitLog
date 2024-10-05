@@ -71,7 +71,7 @@ public class LibraryApp {
         } else if (command.equals("s")) {
             doSearch();
         } else if (command.equals("e")) {
-            doEditBook();
+            doUpdateBook();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -225,12 +225,12 @@ public class LibraryApp {
 
     // MODIFIES: this
     // EFFECTS: prompts user to edit or delete book,
-    // if delete calls doRemoveBook, if edit update book in library
-    private void doEditBook() {
+    // if delete calls doRemoveBook, if edit calls doEditBook
+    private void doUpdateBook() {
         String command = null;
 
         System.out.println("\n -------- Editing a Book --------");
-        
+
         String title = checkTitle();
 
         System.out.println("Would you like to delete (d) book or edit (e) this book?");
@@ -254,31 +254,7 @@ public class LibraryApp {
                 String bookTitle = book.getTitle();
 
                 if (bookTitle.equalsIgnoreCase(title)) {
-                    System.out.println("Enter new title or leave blank to be unchanged: ");
-                    String newTitle = input.toString();
-                    System.out.println("Enter new author or leave blank to be unchanged: ");
-                    String newAuthor = input.toString();
-                    System.out.println("Enter new genre or leave blank to be unchanged: ");
-                    String newGenre = input.toString();
-                    System.out.println("Enter new rating or leave blank to be unchanged: ");
-                    String rating = input.toString();
-                    int newRating = Integer.parseInt(rating);
-                    System.out.println("Enter new review or leave blank to be unchanged: ");
-                    String newReview = input.toString();
-
-                    if (newTitle.isEmpty()) {
-                        newTitle = book.getTitle();
-                    } else if (newAuthor.isEmpty()) {
-                        newAuthor = book.getAuthor();
-                    } else if (newGenre.isEmpty()) {
-                        newGenre = book.getGenre();
-                    } else if (rating.isEmpty()) {
-                        newRating = book.getRating();
-                    } else if (newReview.isEmpty()) {
-                        newReview = book.getReview();
-                    }
-
-                    library.editBook(bookTitle, newTitle, newAuthor, newGenre, newRating, newReview);
+                    doEditBook(title);
 
                 } else {
                     System.out.println("\n Book not found in library.");
@@ -305,5 +281,36 @@ public class LibraryApp {
         }
 
         return title;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prompts user to enter information to be edited in book
+    // and changes book upon given information
+    private void doEditBook(String bookTitle) {
+        System.out.println("Enter new title or leave blank to be unchanged: ");
+        String newTitle = input.toString();
+        System.out.println("Enter new author or leave blank to be unchanged: ");
+        String newAuthor = input.toString();
+        System.out.println("Enter new genre or leave blank to be unchanged: ");
+        String newGenre = input.toString();
+        System.out.println("Enter new rating or leave blank to be unchanged: ");
+        String rating = input.toString();
+        int newRating = Integer.parseInt(rating);
+        System.out.println("Enter new review or leave blank to be unchanged: ");
+        String newReview = input.toString();
+
+        if (newTitle.isEmpty()) {
+            newTitle = book.getTitle();
+        } else if (newAuthor.isEmpty()) {
+            newAuthor = book.getAuthor();
+        } else if (newGenre.isEmpty()) {
+            newGenre = book.getGenre();
+        } else if (rating.isEmpty()) {
+            newRating = book.getRating();
+        } else if (newReview.isEmpty()) {
+            newReview = book.getReview();
+        }
+
+        library.editBook(bookTitle, newTitle, newAuthor, newGenre, newRating, newReview);
     }
 }
