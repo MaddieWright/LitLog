@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 public class TestBook {
     private Book testBook;
-    
+
     @BeforeEach
     void runBefore() {
         testBook = new Book("Harry Potter", "J.K. Rowling", "Fantasy");
@@ -34,7 +34,7 @@ public class TestBook {
     @Test
     void testSetGenre() {
         testBook.setGenre("Mystery");
-        assertEquals("Mystery", testBook.getGenre());   
+        assertEquals("Mystery", testBook.getGenre());
     }
 
     @Test
@@ -49,21 +49,40 @@ public class TestBook {
         assertEquals("in progress", testBook.getReadingStatus());
 
         testBook.setReadingStatus("completed");
-        assertEquals("completed", testBook.getReadingStatus());    
+        assertEquals("completed", testBook.getReadingStatus());
     }
 
     @Test
     void testSetRating() {
         testBook.setRating(1);
-        assertEquals(1, testBook.getRating()); 
+        assertEquals(1, testBook.getRating());
 
         testBook.setRating(4);
-        assertEquals(4, testBook.getRating());     
+        assertEquals(4, testBook.getRating());
     }
 
     @Test
     void testSetReview() {
         testBook.setReview("This book is really good");
-        assertEquals("This book is really good", testBook.getReview()); 
+        assertEquals("This book is really good", testBook.getReview());
+    }
+
+    @Test
+    void testEditBook() {
+        testBook.editBook("Harry Potter 2", "J.K. Rowling", "Fantasy",
+                3, "Was not the best");
+        assertEquals("Harry Potter 2", testBook.getTitle());
+        assertEquals("J.K. Rowling", testBook.getAuthor());
+        assertEquals("Fantasy", testBook.getGenre());
+        assertEquals(3, testBook.getRating());
+        assertEquals("Was not the best", testBook.getReview());
+
+    }
+
+    @Test
+    void testToString() {
+        assertEquals("Title: " + testBook.getTitle() + "\nAuthor: " + testBook.getAuthor() + "\nGenre: " + testBook.getGenre()
+                + "\nStatus: " + testBook.getReadingStatus() + "\nRating: " + testBook.getRating() + "\nReview" + testBook.getReview(), testBook.toString());
+
     }
 }
