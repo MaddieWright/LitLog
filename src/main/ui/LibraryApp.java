@@ -11,6 +11,7 @@ public class LibraryApp {
     private Book book;
     private Library library;
     private Scanner input;
+    String command;
 
     // EFFECTS: runs the library application
     public LibraryApp() {
@@ -21,7 +22,6 @@ public class LibraryApp {
     // EFFECTS: processes user input
     public void runLibrary() {
         boolean keepGoing = true;
-        String command = null;
 
         init();
 
@@ -82,11 +82,11 @@ public class LibraryApp {
     private void newBook() {
         System.out.println("\n -------- Adding New Book --------");
         System.out.println("\n Enter book title:");
-        String title = input.toString();
+        String title = input.next();
         System.out.println("\n Enter book author:");
-        String author = input.toString();
+        String author = input.next();
         System.out.println("\n Enter book genre: ");
-        String genre = input.toString();
+        String genre = input.next();
 
         if (title.isEmpty() || author.isEmpty() || genre.isEmpty()) {
             System.out.println("All fields are required. Book not added.");
@@ -95,7 +95,7 @@ public class LibraryApp {
 
         book = new Book(title, author, genre);
         library.addBook(book);
-        System.out.println(book.toString() + "\nhas been added to your library!");
+        System.out.println(book.toString() + "\n has been added to your library!");
     }
 
     // EFFECTS: lists out all books in library
@@ -116,18 +116,19 @@ public class LibraryApp {
     // EFFECTS: updates book status to "started" or "completed"
     // and if completed calls doBookCompleted
     private void updateBookStatus() {
-        String command = null;
-
         System.out.println("\n -------- Updating Book Status --------");
 
         String title = checkTitle();
+
+        if (title.equals("Book not found in library!")) {
+            System.out.println(title);
+        }
 
         System.out.println("\n Select from: ");
         System.out.println("\t c --> Mark book as completed and add rating and review");
         System.out.println("\t s --> Mark book as started");
 
         command = input.next();
-        command = command.toLowerCase();
 
         if (command.equals("c")) {
             doBookCompleted(title);
@@ -138,8 +139,6 @@ public class LibraryApp {
 
                 if (bookTitle.equalsIgnoreCase(title)) {
                     book.setReadingStatus("started");
-                } else {
-                    System.out.println("\n Book not found in library.");
                 }
             }
         } else {
@@ -180,9 +179,6 @@ public class LibraryApp {
 
     // EFFECTS: searches library for book based on genre or author
     private void doSearch() {
-        String command = null;
-        List<Book> searchList;
-
         System.out.println("\n -------- Searching for Book --------");
 
         System.out.println("\n How would you like to categorize your search: ");
@@ -190,34 +186,11 @@ public class LibraryApp {
         System.out.println("\t a --> By author");
 
         command = input.next();
-        command = command.toLowerCase();
 
         if (command.equalsIgnoreCase("g")) {
-            System.out.println("Enter genre to search for: ");
-            String genre = input.toString();
-
-            if (genre.isEmpty()) {
-                System.out.println("Genre is required.");
-            } else {
-                searchList = library.findBookByGenre(genre);
-
-                for (Book book : searchList) {
-                    System.out.println(book.toString());
-                }
-            }
+            doSearchByGenre();
         } else if (command.equalsIgnoreCase("a")) {
-            System.out.println("Enter author to search for: ");
-            String author = input.toString();
-
-            if (author.isEmpty()) {
-                System.out.println("Author is required.");
-            } else {
-                searchList = library.findBookByAuthor(author);
-
-                for (Book book : searchList) {
-                    System.out.println(book.toString());
-                }
-            }
+            doSearchByAuthor();
         } else {
             System.out.println("Selection not valid...");
         }
@@ -227,15 +200,16 @@ public class LibraryApp {
     // EFFECTS: prompts user to edit or delete book,
     // if delete calls doRemoveBook, if edit calls doEditBook
     private void doUpdateBook() {
-        String command = null;
-
         System.out.println("\n -------- Editing a Book --------");
 
         String title = checkTitle();
 
+        if (title.equals("Book not found in library!")) {
+            System.out.println(title);
+        }
+
         System.out.println("Would you like to delete (d) book or edit (e) this book?");
         command = input.next();
-        command = command.toLowerCase();
 
         if (command.equalsIgnoreCase("d")) {
             for (int i = 0; i < library.getSize(); i++) {
@@ -244,8 +218,6 @@ public class LibraryApp {
 
                 if (bookTitle.equalsIgnoreCase(title)) {
                     doRemoveBook(book);
-                } else {
-                    System.out.println("\n Book not found in library.");
                 }
             }
         } else if (command.equalsIgnoreCase("e")) {
@@ -256,8 +228,6 @@ public class LibraryApp {
                 if (bookTitle.equalsIgnoreCase(title)) {
                     doEditBook(title);
 
-                } else {
-                    System.out.println("\n Book not found in library.");
                 }
             }
         } else {
@@ -273,14 +243,26 @@ public class LibraryApp {
 
     // EFFECTS: checks title of book user wants and returns title of book
     private String checkTitle() {
+        boolean bookExists = false;
+        List<Book> bookList = library.getBooks();
         System.out.println("\n Enter title of book: ");
-        String title = input.toString();
+        String title = input.nextLine();
 
         if (title.isEmpty()) {
             System.out.println("\n Title is required!");
         }
 
-        return title;
+        for (Book book : bookList) {
+            if (book.getTitle().equalsIgnoreCase(title)) {
+                bookExists = true;
+            }
+        }
+
+        if (bookExists) {
+            return title;
+        }
+        return "Book not found in library!";
+
     }
 
     // MODIFIES: this
@@ -312,5 +294,39 @@ public class LibraryApp {
         }
 
         library.editBook(bookTitle, newTitle, newAuthor, newGenre, newRating, newReview);
+    }
+
+    public void doSearchByGenre() {
+        List<Book> searchList;
+
+        System.out.println("Enter genre to search for: ");
+        String genre = input.toString();
+
+        if (genre.isEmpty()) {
+            System.out.println("Genre is required.");
+        } else {
+            searchList = library.findBookByGenre(genre);
+
+            for (Book book : searchList) {
+                System.out.println(book.toString());
+            }
+        }
+    }
+
+    public void doSearchByAuthor() {
+        List<Book> searchList;
+
+        System.out.println("Enter author to search for: ");
+        String author = input.toString();
+
+        if (author.isEmpty()) {
+            System.out.println("Author is required.");
+        } else {
+            searchList = library.findBookByAuthor(author);
+
+            for (Book book : searchList) {
+                System.out.println(book.toString());
+            }
+        }
     }
 }
