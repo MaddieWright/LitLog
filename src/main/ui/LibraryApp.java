@@ -250,7 +250,7 @@ public class LibraryApp {
     // MODIFIES: this
     // EFFECTS: prompts user to enter information to be edited in book
     // and changes book upon given information
-    private void doEditBook(String bookTitle) {
+    private void doEditBook(String bookTitle, Book newBook) {
         System.out.println("Enter new title or leave blank to be unchanged: ");
         String newTitle = input.next();
         System.out.println("Enter new author or leave blank to be unchanged: ");
@@ -275,7 +275,8 @@ public class LibraryApp {
             newReview = book.getReview();
         }
 
-        library.editBook(bookTitle, newTitle, newAuthor, newGenre, newRating, newReview);
+        newBook.editBook(newTitle, newAuthor, newGenre, newRating, newReview);
+        System.out.println(bookTitle + " has been updated!");
     }
 
     //EFFECTS: prompts user to search books by genre and prints out those matching
@@ -335,7 +336,7 @@ public class LibraryApp {
             String bookTitle = book.getTitle();
 
             if (bookTitle.equalsIgnoreCase(title)) {
-                doEditBook(title);
+                doEditBook(title, book);
             }
         }
     }
