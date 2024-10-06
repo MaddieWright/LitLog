@@ -120,8 +120,9 @@ public class LibraryApp {
 
         String title = checkTitle();
 
-        if (title.equals("Book not found in library!")) {
+        while (title.equals("Book not found in library!")) {
             System.out.println(title);
+            title = checkTitle();
         }
 
         System.out.println("\n Select from: ");
@@ -159,7 +160,7 @@ public class LibraryApp {
                 book.setReadingStatus("completed");
 
                 System.out.println("\n Enter rating for book: ");
-                String userRating = input.toString();
+                String userRating = input.next();
                 rating = Integer.parseInt(userRating);
 
                 if (rating < 1 || rating > 5) {
@@ -169,7 +170,7 @@ public class LibraryApp {
                 }
 
                 System.out.println("\n Enter review for book: ");
-                String review = input.toString();
+                String review = input.next();
                 book.setReview(review);
             } else {
                 System.out.println("\n Book not found in library.");
@@ -177,13 +178,14 @@ public class LibraryApp {
         }
     }
 
-    // EFFECTS: searches library for book based on genre or author
+    // EFFECTS: prompts user to categorize their search based on genre or author,
+    // then delegates choice to appropriate search method
     private void doSearch() {
         System.out.println("\n -------- Searching for Book --------");
 
         System.out.println("\n How would you like to categorize your search: ");
         System.out.println("\t g --> By genre");
-        System.out.println("\t a --> By author");
+        System.out.println("\n\t a --> By author");
 
         command = input.next();
 
@@ -198,47 +200,27 @@ public class LibraryApp {
 
     // MODIFIES: this
     // EFFECTS: prompts user to edit or delete book,
-    // if delete calls doRemoveBook, if edit calls doEditBook
+    // if delete calls handleBookRemoval, if edit calls handleBookEdit
     private void doUpdateBook() {
         System.out.println("\n -------- Editing a Book --------");
 
         String title = checkTitle();
 
-        if (title.equals("Book not found in library!")) {
+        while (title.equals("Book not found in library!")) {
             System.out.println(title);
+            title = checkTitle();
         }
 
         System.out.println("Would you like to delete (d) book or edit (e) this book?");
         command = input.next();
 
         if (command.equalsIgnoreCase("d")) {
-            for (int i = 0; i < library.getSize(); i++) {
-                book.equals(library.getBooks().get(i));
-                String bookTitle = book.getTitle();
-
-                if (bookTitle.equalsIgnoreCase(title)) {
-                    doRemoveBook(book);
-                }
-            }
+            handleBookRemoval(title);
         } else if (command.equalsIgnoreCase("e")) {
-            for (int i = 0; i < library.getSize(); i++) {
-                book.equals(library.getBooks().get(i));
-                String bookTitle = book.getTitle();
-
-                if (bookTitle.equalsIgnoreCase(title)) {
-                    doEditBook(title);
-
-                }
-            }
+            handleBookEdit(title);
         } else {
             System.out.println("Selection not valid...");
         }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: removes book from library
-    private void doRemoveBook(Book book) {
-        library.removeBook(book);
     }
 
     // EFFECTS: checks title of book user wants and returns title of book
@@ -246,7 +228,7 @@ public class LibraryApp {
         boolean bookExists = false;
         List<Book> bookList = library.getBooks();
         System.out.println("\n Enter title of book: ");
-        String title = input.nextLine();
+        String title = input.next();
 
         if (title.isEmpty()) {
             System.out.println("\n Title is required!");
@@ -270,16 +252,16 @@ public class LibraryApp {
     // and changes book upon given information
     private void doEditBook(String bookTitle) {
         System.out.println("Enter new title or leave blank to be unchanged: ");
-        String newTitle = input.toString();
+        String newTitle = input.next();
         System.out.println("Enter new author or leave blank to be unchanged: ");
-        String newAuthor = input.toString();
+        String newAuthor = input.next();
         System.out.println("Enter new genre or leave blank to be unchanged: ");
-        String newGenre = input.toString();
+        String newGenre = input.next();
         System.out.println("Enter new rating or leave blank to be unchanged: ");
-        String rating = input.toString();
+        String rating = input.next();
         int newRating = Integer.parseInt(rating);
         System.out.println("Enter new review or leave blank to be unchanged: ");
-        String newReview = input.toString();
+        String newReview = input.next();
 
         if (newTitle.isEmpty()) {
             newTitle = book.getTitle();
@@ -296,11 +278,12 @@ public class LibraryApp {
         library.editBook(bookTitle, newTitle, newAuthor, newGenre, newRating, newReview);
     }
 
+    //EFFECTS: prompts user to search books by genre and prints out those matching
     public void doSearchByGenre() {
         List<Book> searchList;
 
         System.out.println("Enter genre to search for: ");
-        String genre = input.toString();
+        String genre = input.next();
 
         if (genre.isEmpty()) {
             System.out.println("Genre is required.");
@@ -313,11 +296,12 @@ public class LibraryApp {
         }
     }
 
+    //EFFECTS: prompts user to search books by auhtor and prints out those matching
     public void doSearchByAuthor() {
         List<Book> searchList;
 
         System.out.println("Enter author to search for: ");
-        String author = input.toString();
+        String author = input.next();
 
         if (author.isEmpty()) {
             System.out.println("Author is required.");
@@ -326,6 +310,32 @@ public class LibraryApp {
 
             for (Book book : searchList) {
                 System.out.println(book.toString());
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes book from library if title matches
+    private void handleBookRemoval(String title) {
+        for (int i = 0; i < library.getSize(); i++) {
+            book.equals(library.getBooks().get(i));
+            String bookTitle = book.getTitle();
+
+            if (bookTitle.equalsIgnoreCase(title)) {
+                library.removeBook(book);
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: prompts user to edit book through doEditBook method
+    private void handleBookEdit(String title) {
+        for (int i = 0; i < library.getSize(); i++) {
+            book.equals(library.getBooks().get(i));
+            String bookTitle = book.getTitle();
+
+            if (bookTitle.equalsIgnoreCase(title)) {
+                doEditBook(title);
             }
         }
     }
