@@ -22,6 +22,7 @@ public class TestLibrary {
 
     @Test
     void testConstructor() {
+        assertEquals(0, testLibrary.getSize());
         assertEquals(0, testLibrary.getBooks().size());
     }
 
@@ -65,6 +66,5 @@ public class TestLibrary {
         List<Book> rowlingBooks = testLibrary.findBookByAuthor("J.K. Rowling");
         assertTrue(rowlingBooks.contains(testBook));
         assertFalse(rowlingBooks.contains(testBook2));
-
     }
 }
