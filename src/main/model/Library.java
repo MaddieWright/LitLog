@@ -56,21 +56,4 @@ public class Library {
     public int getSize() {
         return bookList.size();
     }
-
-    // MODIFIES: this
-    // EFFECTS: edits book in library given by user
-    public void editBook(String currentTitle, String newTitle, String newAuthor,
-            String newGenre, int newRating, String newReview) {
-        for (Book book : bookList) {
-            if (book.getTitle().equalsIgnoreCase(currentTitle)) {
-                book.setTitle(newTitle);
-                book.setAuthor(newAuthor);
-                book.setGenre(newGenre);
-                book.setRating(newRating);
-                book.setReview(newReview);
-                System.out.println(currentTitle + " has been updated!");
-                return;
-            }
-        }
-    }
 }

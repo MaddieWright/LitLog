@@ -97,7 +97,18 @@ public class Book {
         String status = this.getReadingStatus();
         String review = this.getReview();
         int rating = this.getRating();
-        return "Title: " + title + ", Author: " + author + ", Genre: " + genre
-                + ", Status: " + status + review + rating;
+        return "Title: " + title + "\nAuthor: " + author + "\nGenre: " + genre
+                + "\nStatus: " + status + "\nRating: " + rating + "\nReview" + review;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: edits book given by user
+    public void editBook(String newTitle, String newAuthor,
+            String newGenre, int newRating, String newReview) {
+        this.setTitle(newTitle);
+        this.setAuthor(newAuthor);
+        this.setGenre(newGenre);
+        this.setRating(newRating);
+        this.setReview(newReview);
     }
 }
