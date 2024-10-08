@@ -12,6 +12,8 @@ public class LibraryApp {
     private Library library;
     private Scanner input;
     String command;
+    int rating = 0;
+    boolean validRating = false;
 
     // EFFECTS: runs the library application
     public LibraryApp() {
@@ -80,12 +82,12 @@ public class LibraryApp {
     // MODIFIES: this
     // EFFECTS: prompts user to enter book information and adds to library
     private void newBook() {
-        System.out.println("\n -------- Adding New Book --------");
-        System.out.println("\n Enter book title:");
+        System.out.println("\n-------- Adding New Book --------");
+        System.out.println("\nEnter book title:");
         String title = input.next();
-        System.out.println("\n Enter book author:");
+        System.out.println("\nEnter book author:");
         String author = input.next();
-        System.out.println("\n Enter book genre: ");
+        System.out.println("\nEnter book genre: ");
         String genre = input.next();
 
         if (title.isEmpty() || author.isEmpty() || genre.isEmpty()) {
@@ -95,7 +97,7 @@ public class LibraryApp {
 
         book = new Book(title, author, genre);
         library.addBook(book);
-        System.out.println(book.toString() + "\n has been added to your library!");
+        System.out.println("\n" + book.toString() + "\nhas been added to your library!");
     }
 
     // EFFECTS: lists out all books in library
@@ -151,7 +153,6 @@ public class LibraryApp {
     // EFFECTS: if book is completed asks user for rating and review
     // and updates book in library
     private void doBookCompleted(String title) {
-        int rating = 0;
         for (int i = 0; i < library.getSize(); i++) {
             book.equals(library.getBooks().get(i));
             String bookTitle = book.getTitle();
@@ -159,23 +160,45 @@ public class LibraryApp {
             if (bookTitle.equalsIgnoreCase(title)) {
                 book.setReadingStatus("completed");
 
-                System.out.println("\n Enter rating for book: ");
-                String userRating = input.next();
-                rating = Integer.parseInt(userRating);
+                rating = validRating(0, book);
+                book.setRating(rating);
 
-                if (rating < 1 || rating > 5) {
-                    System.out.println("\n Not a valid rating (rate from 1 - 5)");
-                } else {
-                    book.setRating(rating);
-                }
-
-                System.out.println("\n Enter review for book: ");
+                System.out.println("\nEnter review for book: ");
                 String review = input.next();
                 book.setReview(review);
             } else {
-                System.out.println("\n Book not found in library.");
+                System.out.println("\nBook not found in library.");
             }
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: checks if users rating is valid (Integer and in range), then sets
+    // new rating
+    private int validRating(int choice, Book book) {
+        while (!validRating) {
+            if (choice == 0) {
+                System.out.println("\nEnter rating for book: ");
+            } else {
+                System.out.println("Enter rating for book or leave blank to be unchanged: ");
+            }
+            String userRating = input.next();
+            try {
+                if (userRating.isEmpty()) {
+                    rating = book.getRating();
+                } else {
+                    rating = Integer.parseInt(userRating);
+                }
+                if (rating < 1 || rating > 5) {
+                    System.out.println("\nNot a valid rating (rate from 1 - 5)");
+                } else {
+                    validRating = true;
+                }
+            } catch (NumberFormatException e) {
+                System.out.println("Not a vlaid rating (rate from 1 -5)");
+            }
+        }
+        return rating;
     }
 
     // EFFECTS: prompts user to categorize their search based on genre or author,
@@ -183,9 +206,9 @@ public class LibraryApp {
     private void doSearch() {
         System.out.println("\n -------- Searching for Book --------");
 
-        System.out.println("\n How would you like to categorize your search: ");
+        System.out.println("\nHow would you like to categorize your search: ");
         System.out.println("\t g --> By genre");
-        System.out.println("\n\t a --> By author");
+        System.out.println("\t a --> By author \n");
 
         command = input.next();
 
@@ -227,11 +250,11 @@ public class LibraryApp {
     private String checkTitle() {
         boolean bookExists = false;
         List<Book> bookList = library.getBooks();
-        System.out.println("\n Enter title of book: ");
+        System.out.println("\nEnter title of book: ");
         String title = input.next();
 
         if (title.isEmpty()) {
-            System.out.println("\n Title is required!");
+            System.out.println("\nTitle is required!");
         }
 
         for (Book book : bookList) {
@@ -251,35 +274,34 @@ public class LibraryApp {
     // EFFECTS: prompts user to enter information to be edited in book
     // and changes book upon given information
     private void doEditBook(String bookTitle, Book newBook) {
+        validRating = false;
         System.out.println("Enter new title or leave blank to be unchanged: ");
         String newTitle = input.next();
         System.out.println("Enter new author or leave blank to be unchanged: ");
         String newAuthor = input.next();
         System.out.println("Enter new genre or leave blank to be unchanged: ");
         String newGenre = input.next();
-        System.out.println("Enter new rating or leave blank to be unchanged: ");
-        String rating = input.next();
-        int newRating = Integer.parseInt(rating);
+        int newRating = validRating(1, book);
         System.out.println("Enter new review or leave blank to be unchanged: ");
         String newReview = input.next();
 
         if (newTitle.isEmpty()) {
             newTitle = book.getTitle();
-        } else if (newAuthor.isEmpty()) {
+        }
+        if (newAuthor.isEmpty()) {
             newAuthor = book.getAuthor();
-        } else if (newGenre.isEmpty()) {
+        }
+        if (newGenre.isEmpty()) {
             newGenre = book.getGenre();
-        } else if (rating.isEmpty()) {
-            newRating = book.getRating();
-        } else if (newReview.isEmpty()) {
+        }
+        if (newReview.isEmpty()) {
             newReview = book.getReview();
         }
 
         newBook.editBook(newTitle, newAuthor, newGenre, newRating, newReview);
-        System.out.println(bookTitle + " has been updated!");
     }
 
-    //EFFECTS: prompts user to search books by genre and prints out those matching
+    // EFFECTS: prompts user to search books by genre and prints out those matching
     public void doSearchByGenre() {
         List<Book> searchList;
 
@@ -292,12 +314,12 @@ public class LibraryApp {
             searchList = library.findBookByGenre(genre);
 
             for (Book book : searchList) {
-                System.out.println(book.toString());
+                System.out.println("\n" + book.toString());
             }
         }
     }
 
-    //EFFECTS: prompts user to search books by auhtor and prints out those matching
+    // EFFECTS: prompts user to search books by auhtor and prints out those matching
     public void doSearchByAuthor() {
         List<Book> searchList;
 
@@ -310,7 +332,7 @@ public class LibraryApp {
             searchList = library.findBookByAuthor(author);
 
             for (Book book : searchList) {
-                System.out.println(book.toString());
+                System.out.println("\n" + book.toString());
             }
         }
     }
@@ -339,5 +361,6 @@ public class LibraryApp {
                 doEditBook(title, book);
             }
         }
+        System.out.println(title + " has been updated!");
     }
 }
