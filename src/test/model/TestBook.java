@@ -82,7 +82,7 @@ public class TestBook {
     @Test
     void testToString() {
         assertEquals("Title: " + testBook.getTitle() + "\nAuthor: " + testBook.getAuthor() + "\nGenre: " + testBook.getGenre()
-                + "\nStatus: " + testBook.getReadingStatus() + "\nRating: " + testBook.getRating() + "\nReview" + testBook.getReview(), testBook.toString());
+                + "\nStatus: " + testBook.getReadingStatus() + "\nRating: " + testBook.getRating() + "\nReview: " + testBook.getReview(), testBook.toString());
 
     }
 }
