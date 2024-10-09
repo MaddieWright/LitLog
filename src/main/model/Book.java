@@ -12,7 +12,7 @@ public class Book {
 
     // Constructs a book
     // EFFECTS: creates a book with given name, author, genre.
-    // initializes the reading status as "not started", and sets rating and review
+    // Initializes the reading status as "not started", and sets rating and review
     // to default values.
     public Book(String title, String author, String genre) {
         this.title = title;
@@ -91,16 +91,6 @@ public class Book {
         this.rating = rating;
     }
 
-    // Override toString() for displaying book details
-    @Override
-    public String toString() {
-        String status = this.getReadingStatus();
-        String review = this.getReview();
-        int rating = this.getRating();
-        return "Title: " + title + "\nAuthor: " + author + "\nGenre: " + genre
-                + "\nStatus: " + status + "\nRating: " + rating + "\nReview" + review;
-    }
-
     // MODIFIES: this
     // EFFECTS: edits book given by user
     public void editBook(String newTitle, String newAuthor,
@@ -110,5 +100,15 @@ public class Book {
         this.setGenre(newGenre);
         this.setRating(newRating);
         this.setReview(newReview);
+    }
+
+    // Override toString() for displaying book details
+    @Override
+    public String toString() {
+        String status = this.getReadingStatus();
+        String review = this.getReview();
+        int rating = this.getRating();
+        return "Title: " + title + "\nAuthor: " + author + "\nGenre: " + genre
+                + "\nStatus: " + status + "\nRating: " + rating + "\nReview: " + review;
     }
 }
