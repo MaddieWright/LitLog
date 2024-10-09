@@ -23,17 +23,16 @@ public class TestLibrary {
     @Test
     void testConstructor() {
         assertEquals(0, testLibrary.getSize());
-        assertEquals(0, testLibrary.getBooks().size());
     }
 
     @Test
     void testAddBook() {
         testLibrary.addBook(testBook);
-        assertEquals(1, testLibrary.getBooks().size());
+        assertEquals(1, testLibrary.getSize());
         assertTrue(testLibrary.getBooks().contains(testBook));
 
         testLibrary.addBook(testBook2);
-        assertEquals(2, testLibrary.getBooks().size());
+        assertEquals(2, testLibrary.getSize());
         assertTrue(testLibrary.getBooks().contains(testBook2));
     }
 
@@ -43,7 +42,7 @@ public class TestLibrary {
         testLibrary.addBook(testBook2);
 
         testLibrary.removeBook(testBook);
-        assertEquals(1, testLibrary.getBooks().size());
+        assertEquals(1, testLibrary.getSize());
         assertFalse(testLibrary.getBooks().contains(testBook));
         assertTrue(testLibrary.getBooks().contains(testBook2));
     }

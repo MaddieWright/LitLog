@@ -64,14 +64,19 @@ public class LibraryApp {
     // EFFECTS: processes user command
     private void processCommand(String command) {
         if (command.equals("a")) {
+            System.out.println("\n-------- Adding New Book --------");
             doNewBook();
         } else if (command.equals("v")) {
+            System.out.println("\n -------- Viewing All Books --------");
             doViewBooks();
         } else if (command.equals("c")) {
+            System.out.println("\n -------- Updating Book Status --------");
             doUpdateStatus();
         } else if (command.equals("s")) {
+            System.out.println("\n -------- Searching for Book --------");
             doSearch();
         } else if (command.equals("e")) {
+            System.out.println("\n -------- Editing a Book --------");
             doUpdateBook();
         } else {
             System.out.println("Selection not valid...");
@@ -81,7 +86,6 @@ public class LibraryApp {
     // MODIFIES: this
     // EFFECTS: prompts user to enter book information and adds to library
     private void doNewBook() {
-        System.out.println("\n-------- Adding New Book --------");
         System.out.println("\nEnter book title:");
         String title = input.next();
         System.out.println("\nEnter book author:");
@@ -101,8 +105,6 @@ public class LibraryApp {
 
     // EFFECTS: lists out all books in library
     private void doViewBooks() {
-        System.out.println("\n -------- Viewing All Books --------");
-
         List<Book> bookList = library.getBooks();
         if (bookList.isEmpty()) {
             System.out.println("Your library is empty.");
@@ -118,8 +120,6 @@ public class LibraryApp {
     // then updates book status to "started" or "completed"
     // and if completed calls doBookCompleted
     private void doUpdateStatus() {
-        System.out.println("\n -------- Updating Book Status --------");
-
         String title = checkTitle();
 
         while (title.equals("Book not found in library!")) {
@@ -136,17 +136,7 @@ public class LibraryApp {
         if (command.equals("c")) {
             handleBookCompleted(title);
         } else if (command.equals("s")) {
-            for (int i = 0; i < library.getSize(); i++) {
-                book.equals(library.getBooks().get(i));
-                String bookTitle = book.getTitle();
-
-                if (bookTitle.equalsIgnoreCase(title) &&
-                        !book.getReadingStatus().equals("completed")) {
-                    book.setReadingStatus("started");
-                } else {
-                    System.out.println("Book has already been completed!");
-                }
-            }
+            handleBookStarted(title);
         } else {
             System.out.println("Selection not valid... returning to main menu");
         }
@@ -155,8 +145,6 @@ public class LibraryApp {
     // EFFECTS: prompts user to categorize their search based on genre or author,
     // then delegates choice to appropriate search method
     private void doSearch() {
-        System.out.println("\n -------- Searching for Book --------");
-
         System.out.println("\nHow would you like to categorize your search: ");
         System.out.println("\t g --> By genre");
         System.out.println("\t a --> By author \n");
@@ -176,8 +164,6 @@ public class LibraryApp {
     // EFFECTS: prompts user to edit or delete book,
     // if delete calls handleBookRemoval, if edit calls handleBookEdit
     private void doUpdateBook() {
-        System.out.println("\n -------- Editing a Book --------");
-
         String title = checkTitle();
 
         while (title.equals("Book not found in library!")) {
@@ -226,6 +212,20 @@ public class LibraryApp {
         }
 
         newBook.editBook(newTitle, newAuthor, newGenre, newRating, newReview);
+    }
+
+    private void handleBookStarted(String title) {
+        for (int i = 0; i < library.getSize(); i++) {
+            book = library.getBooks().get(i);
+            String bookTitle = book.getTitle();
+
+            if (bookTitle.equalsIgnoreCase(title)
+                    && !book.getReadingStatus().equals("completed")) {
+                book.setReadingStatus("started");
+            } else {
+                System.out.println("Book has already been completed!");
+            }
+        }
     }
 
     // EFFECTS: prompts user to search books by genre and prints out those matching
@@ -277,7 +277,7 @@ public class LibraryApp {
     // and updates book in library
     private void handleBookCompleted(String title) {
         for (int i = 0; i < library.getSize(); i++) {
-            book.equals(library.getBooks().get(i));
+            book = library.getBooks().get(i);
             String bookTitle = book.getTitle();
 
             if (bookTitle.equalsIgnoreCase(title)) {
@@ -296,10 +296,10 @@ public class LibraryApp {
     }
 
     // MODIFIES: this
-    // EFFECTS: removes book from library if title matches
+    // EFFECTS: removes first book from library that the title matches
     private void handleBookRemoval(String title) {
         for (int i = 0; i < library.getSize(); i++) {
-            book.equals(library.getBooks().get(i));
+            book = library.getBooks().get(i);
             String bookTitle = book.getTitle();
 
             if (bookTitle.equalsIgnoreCase(title)) {
@@ -311,7 +311,7 @@ public class LibraryApp {
     // EFFECTS: prompts user to edit book through doEditBook method
     private void handleBookEdit(String title) {
         for (int i = 0; i < library.getSize(); i++) {
-            book.equals(library.getBooks().get(i));
+            book = library.getBooks().get(i);
             String bookTitle = book.getTitle();
 
             if (bookTitle.equalsIgnoreCase(title)) {
