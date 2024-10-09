@@ -115,10 +115,9 @@ public class LibraryApp {
         }
     }
 
-    // MODIFIES: this
     // EFFECTS: prompts user for title of book to update,
     // then updates book status to "started" or "completed"
-    // and if completed calls doBookCompleted
+    // and calls appropriate method to handle updates
     private void doUpdateStatus() {
         String title = checkTitle();
 
@@ -214,6 +213,31 @@ public class LibraryApp {
         newBook.editBook(newTitle, newAuthor, newGenre, newRating, newReview);
     }
 
+    // MODIFIES: this
+    // EFFECTS: if book is completed asks user for rating and review
+    // and updates book in library
+    private void handleBookCompleted(String title) {
+        for (int i = 0; i < library.getSize(); i++) {
+            book = library.getBooks().get(i);
+            String bookTitle = book.getTitle();
+
+            if (bookTitle.equalsIgnoreCase(title)) {
+                book.setReadingStatus("completed");
+
+                rating = validRating(0, book);
+                book.setRating(rating);
+
+                System.out.println("\nEnter review for book: ");
+                String review = input.next();
+                book.setReview(review);
+            } else {
+                System.out.println("\nBook not found in library.");
+            }
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: handles setting book status from user to "started"
     private void handleBookStarted(String title) {
         for (int i = 0; i < library.getSize(); i++) {
             book = library.getBooks().get(i);
@@ -268,29 +292,6 @@ public class LibraryApp {
 
             for (Book book : searchList) {
                 System.out.println("\n" + book.toString());
-            }
-        }
-    }
-
-    // MODIFIES: this
-    // EFFECTS: if book is completed asks user for rating and review
-    // and updates book in library
-    private void handleBookCompleted(String title) {
-        for (int i = 0; i < library.getSize(); i++) {
-            book = library.getBooks().get(i);
-            String bookTitle = book.getTitle();
-
-            if (bookTitle.equalsIgnoreCase(title)) {
-                book.setReadingStatus("completed");
-
-                rating = validRating(0, book);
-                book.setRating(rating);
-
-                System.out.println("\nEnter review for book: ");
-                String review = input.next();
-                book.setReview(review);
-            } else {
-                System.out.println("\nBook not found in library.");
             }
         }
     }
