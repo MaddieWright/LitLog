@@ -1,0 +1,20 @@
+{
+    "books": [
+        {
+            "title": "Harry",
+            "author": "Rowling",
+            "genre": "Horror",
+            "status": "not started",
+            "rating": -1,
+            "review": ""
+        },
+        {
+            "title": "Lies",
+            "author": "Mitten",
+            "genre": "Mystery",
+            "status": "not started",
+            "rating": -1,
+            "review": ""
+        }
+    ]
+}
