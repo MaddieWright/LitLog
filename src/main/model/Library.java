@@ -2,8 +2,13 @@ package model;
 
 import java.util.*;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import persistance.Writable;
+
 //A representation of a library containing a collection of books
-public class Library {
+public class Library implements Writable{
     private List<Book> bookList;
 
     // Constructs an empty collection of books
@@ -55,5 +60,24 @@ public class Library {
     // Returns list of books in library size
     public int getSize() {
         return bookList.size();
+    }
+
+     @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        // json.put("name", name);
+        json.put("books", booksToJson());
+        return json;
+    }
+
+    // EFFECTS: returns books in this library as a JSON array
+    private JSONArray booksToJson() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (Book b : bookList) {
+            jsonArray.put(b.toJson());
+        }
+
+        return jsonArray;
     }
 }
