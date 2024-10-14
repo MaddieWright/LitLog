@@ -3,7 +3,6 @@ package persistance;
 import model.Book;
 import model.Library;
 
-import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -25,7 +24,7 @@ public class TestJsonReader extends TestJson{
 
     @Test
     void testReaderEmptyLibrary() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyWorkRoom.json");
+        JsonReader reader = new JsonReader("./data/testReaderEmptyLibrary.json");
         try {
             Library lib = reader.read();
             // assertEquals("My Library", lib.getName());
@@ -37,7 +36,7 @@ public class TestJsonReader extends TestJson{
 
     @Test
     void testReaderGeneralLibrary() {
-        JsonReader reader = new JsonReader("./data/testReaderGeneralWorkRoom.json");
+        JsonReader reader = new JsonReader("./data/testReaderGeneralLibrary.json");
         try {
             Library lib = reader.read();
             List<Book> books = lib.getBooks();
