@@ -12,4 +12,6 @@ Some features and specific tasks I would like to accomplish as a **user** with t
 - As a **user**, I want to be able to mark a book as completed and add a rating with a review.
 - As a **user**, I want to be able to categorize books by genre or author for easy seraching.
 - As a **user**, I want to to be able to remove or edit books in my library.
+- As a **user**, I want to be able to save my library to file (if I choose so).
+- As a **user**, I want to be able to load my library from file (if I choose so).
  
