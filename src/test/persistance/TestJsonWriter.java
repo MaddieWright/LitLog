@@ -26,7 +26,7 @@ public class TestJsonWriter extends TestJson {
     }
 
     @Test
-    void testWriterEmptyWorkroom() {
+    void testWriterEmptyLibrary() {
         try {
             Library lib = new Library();
             JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
@@ -44,7 +44,7 @@ public class TestJsonWriter extends TestJson {
     }
 
     @Test
-    void testWriterGeneralWorkroom() {
+    void testWriterGeneralLibrary() {
         try {
             Library lib = new Library();
             Book book1 = new Book("Harry", "Rowling", "Horror");
