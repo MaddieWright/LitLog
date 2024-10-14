@@ -1,7 +1,10 @@
 package model;
 
+import org.json.JSONObject;
+import persistance.Writable;
+
 // Represents a Book having a title, author, genre, reading status, rating, and review
-public class Book {
+public class Book implements Writable{
 
     String title; // Book title
     String author; // Book author
@@ -110,5 +113,17 @@ public class Book {
         int rating = this.getRating();
         return "Title: " + title + "\nAuthor: " + author + "\nGenre: " + genre
                 + "\nStatus: " + status + "\nRating: " + rating + "\nReview: " + review;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("title", title);
+        json.put("author", author);
+        json.put("genre", genre);
+        json.put("status", readingStatus);
+        json.put("rating", rating);
+        json.put("review", review);
+        return json;
     }
 }
