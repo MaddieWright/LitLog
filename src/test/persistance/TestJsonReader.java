@@ -42,8 +42,8 @@ public class TestJsonReader extends TestJson{
             Library lib = reader.read();
             List<Book> books = lib.getBooks();
             assertEquals(2, books.size());
-            checkBook("Harry", "Horror", "Rowling", 3, "Okay", books.get(0));
-            checkBook("Lies", "Mystery", "Mitten", 4, "Good", books.get(1));
+            checkBook("Harry", "Rowling", "Horror",  books.get(0));
+            checkBook("Lies", "Mitten", "Mystery", books.get(1));
         } catch (IOException e) {
             fail("Couldn't read from file");
         }
