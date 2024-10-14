@@ -3,7 +3,6 @@ package persistance;
 import model.Book;
 import model.Library;
 
-import org.junit.experimental.categories.Category;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -29,12 +28,12 @@ public class TestJsonWriter extends TestJson {
     void testWriterEmptyLibrary() {
         try {
             Library lib = new Library();
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyWorkroom.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterEmptyLibrary.json");
             writer.open();
             writer.write(lib);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testWriterEmptyLibrary.json");
             lib = reader.read();
             // assertEquals("My library", lib.getName());
             assertEquals(0, lib.getSize());
@@ -51,12 +50,12 @@ public class TestJsonWriter extends TestJson {
             Book book2 = new Book("Lies", "Mitten", "Mystery");
             lib.addBook(book1);
             lib.addBook(book2);
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralWorkroom.json");
+            JsonWriter writer = new JsonWriter("./data/testWriterGeneralLibrary.json");
             writer.open();
             writer.write(lib);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralWorkroom.json");
+            JsonReader reader = new JsonReader("./data/testWriterGeneralLibrary.json");
             lib = reader.read();
             // assertEquals("My library", lib.getName());
             List<Book> books = lib.getBooks();
