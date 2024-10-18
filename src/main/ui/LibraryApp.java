@@ -102,12 +102,24 @@ public class LibraryApp {
     // MODIFIES: this
     // EFFECTS: loads library from file
     private void loadLibrary() {
-        // stub
+        try {
+            jsonWriter.open();
+            jsonWriter.write(library);
+            jsonWriter.close();
+            System.out.println("Saved library to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
     }
 
     // EFFECTS: saves the library to file
     private void saveLibrary() {
-        // stub
+        try {
+            library = jsonReader.read();
+            System.out.println("Loaded library from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
     // MODIFIES: this
