@@ -35,7 +35,6 @@ public class TestJsonWriter extends TestJson {
 
             JsonReader reader = new JsonReader("./lib/data/testWriterEmptyLibrary.json");
             lib = reader.read();
-            // assertEquals("My library", lib.getName());
             assertEquals(0, lib.getSize());
         } catch (IOException e) {
             fail("Exception should not have been thrown");

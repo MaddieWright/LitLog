@@ -41,7 +41,6 @@ public class JsonReader {
 
     // EFFECTS: parses library from JSON object and returns it
     private Library parseLibrary(JSONObject jsonObject) {
-        // String name = jsonObject.getString("name");
         Library lib = new Library();
         addBooks(lib, jsonObject);
         return lib;
@@ -60,7 +59,6 @@ public class JsonReader {
     // MODIFIES: lib
     // EFFECTS: parses book from JSON object and adds it to library
     private void addBook(Library lib, JSONObject jsonObject) {
-        // String name = jsonObject.getString("name");
         String title = jsonObject.getString("title");
         String author = jsonObject.getString("author");
         String genre = jsonObject.getString("genre");

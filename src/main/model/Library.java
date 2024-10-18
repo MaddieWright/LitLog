@@ -8,7 +8,7 @@ import org.json.JSONObject;
 import persistance.Writable;
 
 //A representation of a library containing a collection of books
-public class Library implements Writable{
+public class Library implements Writable {
     private List<Book> bookList;
 
     // Constructs an empty collection of books
@@ -62,10 +62,10 @@ public class Library implements Writable{
         return bookList.size();
     }
 
-     @Override
+    // Override toJson() for library details
+    @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
-        // json.put("name", name);
         json.put("books", booksToJson());
         return json;
     }

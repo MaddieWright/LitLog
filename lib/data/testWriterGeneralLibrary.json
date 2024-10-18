@@ -1,20 +1,18 @@
-{
-    "books": [
-        {
-            "title": "Harry",
-            "author": "Rowling",
-            "genre": "Horror",
-            "status": "not started",
-            "rating": -1,
-            "review": ""
-        },
-        {
-            "title": "Lies",
-            "author": "Mitten",
-            "genre": "Mystery",
-            "status": "not started",
-            "rating": -1,
-            "review": ""
-        }
-    ]
-}
+{"books": [
+    {
+        "author": "Rowling",
+        "review": "",
+        "genre": "Horror",
+        "rating": -1,
+        "title": "Harry",
+        "status": "not started"
+    },
+    {
+        "author": "Mitten",
+        "review": "",
+        "genre": "Mystery",
+        "rating": -1,
+        "title": "Lies",
+        "status": "not started"
+    }
+]}

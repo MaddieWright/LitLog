@@ -26,8 +26,6 @@ public class LibraryApp {
     // EFFECTS: runs the library application
     public LibraryApp() {
         runLibrary();
-        jsonWriter = new JsonWriter(JSON_STORE);
-        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // MODIFIES: this
@@ -59,8 +57,8 @@ public class LibraryApp {
         System.out.println("\t c -> change book status");
         System.out.println("\t s -> search library for genre or author");
         System.out.println("\t e -> remove or edit book");
-        System.out.println("\ts -> save work room to file");
-        System.out.println("\tl -> load work room from file");
+        System.out.println("\t f -> save library to file");
+        System.out.println("\t l -> load library from file");
         System.out.println("\t q -> quit");
     }
 
@@ -70,6 +68,9 @@ public class LibraryApp {
         library = new Library();
         input = new Scanner(System.in);
         input.useDelimiter("\r?\n|\r");
+
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // MODIFIES: this
@@ -90,7 +91,7 @@ public class LibraryApp {
         } else if (command.equals("e")) {
             System.out.println("\n -------- Editing a Book --------");
             doUpdateBook();
-        } else if (command.equals("s")) {
+        } else if (command.equals("f")) {
             saveLibrary();
         } else if (command.equals("l")) {
             loadLibrary();
@@ -103,22 +104,22 @@ public class LibraryApp {
     // EFFECTS: loads library from file
     private void loadLibrary() {
         try {
-            jsonWriter.open();
-            jsonWriter.write(library);
-            jsonWriter.close();
-            System.out.println("Saved library to " + JSON_STORE);
-        } catch (FileNotFoundException e) {
-            System.out.println("Unable to write to file: " + JSON_STORE);
+            library = jsonReader.read();
+            System.out.println("Loaded library from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
         }
     }
 
     // EFFECTS: saves the library to file
     private void saveLibrary() {
         try {
-            library = jsonReader.read();
-            System.out.println("Loaded library from " + JSON_STORE);
-        } catch (IOException e) {
-            System.out.println("Unable to read from file: " + JSON_STORE);
+            jsonWriter.open();
+            jsonWriter.write(library);
+            jsonWriter.close();
+            System.out.println("Saved library to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
         }
     }
 
