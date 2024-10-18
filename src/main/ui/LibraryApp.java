@@ -2,9 +2,13 @@ package ui;
 
 import model.Book;
 import model.Library;
+import persistance.JsonReader;
+import persistance.JsonWriter;
 
 import java.util.List;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 // Library application
 public class LibraryApp {
@@ -14,10 +18,16 @@ public class LibraryApp {
     private String command;
     private int rating = 0;
     private boolean validRating = false;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
+
+    private static final String JSON_STORE = "./lib/data/library.json";
 
     // EFFECTS: runs the library application
     public LibraryApp() {
         runLibrary();
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
     }
 
     // MODIFIES: this
@@ -49,6 +59,8 @@ public class LibraryApp {
         System.out.println("\t c -> change book status");
         System.out.println("\t s -> search library for genre or author");
         System.out.println("\t e -> remove or edit book");
+        System.out.println("\ts -> save work room to file");
+        System.out.println("\tl -> load work room from file");
         System.out.println("\t q -> quit");
     }
 
@@ -78,9 +90,24 @@ public class LibraryApp {
         } else if (command.equals("e")) {
             System.out.println("\n -------- Editing a Book --------");
             doUpdateBook();
+        } else if (command.equals("s")) {
+            saveLibrary();
+        } else if (command.equals("l")) {
+            loadLibrary();
         } else {
             System.out.println("Selection not valid...");
         }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads library from file
+    private void loadLibrary() {
+        // stub
+    }
+
+    // EFFECTS: saves the library to file
+    private void saveLibrary() {
+        // stub
     }
 
     // MODIFIES: this
@@ -309,7 +336,8 @@ public class LibraryApp {
         }
     }
 
-    // EFFECTS: prompts user to edit book through doEditBook method
+    // EFFECTS: looks for book with given title and edit book through doEditBook
+    // method
     private void handleBookEdit(String title) {
         for (int i = 0; i < library.getSize(); i++) {
             book = library.getBooks().get(i);
