@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TestJsonReader extends TestJson{
     @Test
     void testReaderNonExistentFile() {
-        JsonReader reader = new JsonReader("./data/noSuchFile.json");
+        JsonReader reader = new JsonReader("./lib/data/noSuchFile.json");
         try {
             Library lib = reader.read();
             fail("IOException expected");
@@ -24,7 +24,7 @@ public class TestJsonReader extends TestJson{
 
     @Test
     void testReaderEmptyLibrary() {
-        JsonReader reader = new JsonReader("./data/testReaderEmptyLibrary.json");
+        JsonReader reader = new JsonReader("./lib/data/testReaderEmptyLibrary.json");
         try {
             Library lib = reader.read();
             // assertEquals("My Library", lib.getName());
@@ -36,7 +36,7 @@ public class TestJsonReader extends TestJson{
 
     @Test
     void testReaderGeneralLibrary() {
-        JsonReader reader = new JsonReader("./data/testReaderGeneralLibrary.json");
+        JsonReader reader = new JsonReader("./lib/data/testReaderGeneralLibrary.json");
         try {
             Library lib = reader.read();
             List<Book> books = lib.getBooks();

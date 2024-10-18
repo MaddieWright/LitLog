@@ -16,7 +16,7 @@ public class TestJsonWriter extends TestJson {
     void testWriterInvalidFile() {
         try {
             Library lib = new Library();
-            JsonWriter writer = new JsonWriter("./data/my\0illegal:fileName.json");
+            JsonWriter writer = new JsonWriter("./lib/data/my\0illegal:fileName.json");
             writer.open();
             fail("IOException was expected");
         } catch (IOException e) {
@@ -28,12 +28,12 @@ public class TestJsonWriter extends TestJson {
     void testWriterEmptyLibrary() {
         try {
             Library lib = new Library();
-            JsonWriter writer = new JsonWriter("./data/testWriterEmptyLibrary.json");
+            JsonWriter writer = new JsonWriter("./lib/data/testWriterEmptyLibrary.json");
             writer.open();
             writer.write(lib);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterEmptyLibrary.json");
+            JsonReader reader = new JsonReader("./lib/data/testWriterEmptyLibrary.json");
             lib = reader.read();
             // assertEquals("My library", lib.getName());
             assertEquals(0, lib.getSize());
@@ -50,12 +50,12 @@ public class TestJsonWriter extends TestJson {
             Book book2 = new Book("Lies", "Mitten", "Mystery");
             lib.addBook(book1);
             lib.addBook(book2);
-            JsonWriter writer = new JsonWriter("./data/testWriterGeneralLibrary.json");
+            JsonWriter writer = new JsonWriter("./lib/data/testWriterGeneralLibrary.json");
             writer.open();
             writer.write(lib);
             writer.close();
 
-            JsonReader reader = new JsonReader("./data/testWriterGeneralLibrary.json");
+            JsonReader reader = new JsonReader("./lib/data/testWriterGeneralLibrary.json");
             lib = reader.read();
             // assertEquals("My library", lib.getName());
             List<Book> books = lib.getBooks();
