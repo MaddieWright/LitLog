@@ -132,22 +132,58 @@ public class LibraryGUI extends JFrame {
 
     // Method to open Add Book screen and include "Back" button
     private void openAddBookScreen() {
+        // First clear main frame for new Add Book components
+        getContentPane().removeAll();
+        JButton backButton = new JButton("Back!");
+        backButton.addActionListener(e -> returnToMainScreen());
+        add(backButton, BorderLayout.NORTH);
 
+        // add code for the add book function
+
+        revalidate();
+        repaint();
     }
 
     // Method to open View Books screen and include "Back" button
     private void openViewBooksScreen() {
+        // First clear main frame for new View Book components
+        getContentPane().removeAll();
+        JButton backButton = new JButton("Back!");
+        backButton.addActionListener(e -> returnToMainScreen());
+        add(backButton, BorderLayout.NORTH);
 
+        // add code for the view books function
+
+        revalidate();
+        repaint();
     }
 
     // Method to open Search Books screen and include "Back" button
     private void openSearchBooksScreen() {
+        // First clear main frame for new Search Book components
+        getContentPane().removeAll();
+        JButton backButton = new JButton("Back!");
+        backButton.addActionListener(e -> returnToMainScreen());
+        add(backButton, BorderLayout.NORTH);
 
+        // add code for the search books function
+
+        revalidate();
+        repaint();
     }
 
     // Method to open Edit Books screen and include "Back" button
     private void openEditBooksScreen() {
+        // First clear main frame for new Edit Book components
+        getContentPane().removeAll();
+        JButton backButton = new JButton("Back!");
+        backButton.addActionListener(e -> returnToMainScreen());
+        add(backButton, BorderLayout.NORTH);
 
+        // add code for the edit book function
+
+        revalidate();
+        repaint();
     }
 
     // Method to load library from file
@@ -162,7 +198,14 @@ public class LibraryGUI extends JFrame {
 
     // Method to return to main screen whne "Back" button is selected
     private void returnToMainScreen() {
+        getContentPane().removeAll();
+        addHeader();
+        addWelcomeAndMenu();
+        addLibrarySection();
+        addBottomButtons();
 
+        revalidate();
+        repaint();
     }
 
 }
