@@ -134,7 +134,7 @@ public class LibraryGUI extends JFrame {
 
         // libraryPanel.add(); add view books here
 
-        add(libraryPanel, BorderLayout.EAST); // fix format!!
+        add(libraryPanel, BorderLayout.EAST);
     }
 
     // Add Save, Load, and Quit buttons at the bottom
@@ -209,7 +209,6 @@ public class LibraryGUI extends JFrame {
 
     // Refreshes the list of books displayed
     private void displayAllBooks() {
-        bookListModel.clear();
         for (Book book : library.getBooks()) {
             bookListModel.addElement(book.toString());
         }
@@ -223,7 +222,26 @@ public class LibraryGUI extends JFrame {
         backButton.addActionListener(e -> returnToMainScreen());
         add(backButton, BorderLayout.NORTH);
 
-        // add code for the view books function
+        // Create panel to hold library list
+        JPanel libraryPanel = new JPanel(new BorderLayout());
+        JLabel libraryLabel = new JLabel("My Library", SwingConstants.CENTER);
+        libraryLabel.setFont(new Font("Calibri", Font.BOLD, 18));
+        libraryPanel.add(libraryLabel, BorderLayout.NORTH);
+
+        // Initialize bookListModel and bookList for displaying books
+        bookListModel = new DefaultListModel<>();
+        bookList = new JList<>(bookListModel);
+
+        // Add to book list model with all books from the library
+        for (Book book : library.getBooks()) {
+            bookListModel.addElement(book.toString());
+        }
+
+        // Add book list to a scroll pane and then to libraryPanel
+        JScrollPane scrollPane = new JScrollPane(bookList);
+        libraryPanel.add(scrollPane, BorderLayout.CENTER);
+
+        add(libraryPanel, BorderLayout.CENTER);
 
         revalidate();
         repaint();
@@ -298,7 +316,6 @@ public class LibraryGUI extends JFrame {
         JButton startButton = new JButton("Start Book");
         JButton removeButton = new JButton("Remove Book");
 
-
         editPanel.add(bookLabel);
         editPanel.add(bookField);
         editPanel.add(completeButton);
@@ -314,10 +331,10 @@ public class LibraryGUI extends JFrame {
         repaint();
 
         completeButton.addActionListener(e -> {
-              String title = bookField.getText();
+            String title = bookField.getText();
             for (Book b : library.getBooks()) {
                 if (b.getTitle().equalsIgnoreCase(title)) {
-                    b.setReadingStatus("completed"); 
+                    b.setReadingStatus("completed");
                     String review = reviewField.getText();
                     b.setReview(review);
                     int rating = Integer.parseInt(rateField.getText());
@@ -331,7 +348,7 @@ public class LibraryGUI extends JFrame {
             String title = bookField.getText();
             for (Book b : library.getBooks()) {
                 if (b.getTitle().equalsIgnoreCase(title)) {
-                    b.setReadingStatus("started"); 
+                    b.setReadingStatus("started");
                 }
             }
             displayAllBooks();
