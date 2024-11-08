@@ -265,6 +265,8 @@ public class LibraryGUI extends JFrame {
         JTextField genreField = new JTextField();
         JButton genreSearchButton = new JButton("Search");
 
+        JPanel displayPanel = new JPanel(new BorderLayout());
+
         searchPanel.add(authorLabel);
         searchPanel.add(authorField);
         searchPanel.add(authorSearchButton);
@@ -272,9 +274,17 @@ public class LibraryGUI extends JFrame {
         searchPanel.add(genreField);
         searchPanel.add(genreSearchButton);
 
+        // Initialize bookListModel and bookList for displaying books
+        bookListModel = new DefaultListModel<>();
+        bookList = new JList<>(bookListModel);
+
         add(searchPanel, BorderLayout.CENTER);
-        revalidate();
-        repaint();
+
+        // Add book list to a scroll pane and then to libraryPanel
+        JScrollPane scrollPane = new JScrollPane(bookList);
+        displayPanel.add(scrollPane, BorderLayout.CENTER);
+
+        searchPanel.add(displayPanel, BorderLayout.CENTER);
 
         authorSearchButton.addActionListener(e -> {
             String author = authorField.getText();
