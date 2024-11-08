@@ -369,6 +369,7 @@ public class LibraryGUI extends JFrame {
             for (Book b : library.getBooks()) {
                 if (b.getTitle().equalsIgnoreCase(title)) {
                     library.removeBook(b);
+                    bookListModel.removeElement(b);
                 }
             }
             displayAllBooks();
