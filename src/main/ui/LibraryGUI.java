@@ -162,12 +162,12 @@ public class LibraryGUI extends JFrame {
         // Add action listeners for bottom button options
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                loadLibrary();
+                saveLibrary();
             }
         });
         loadButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                saveLibrary();
+                loadLibrary();
             }
         });
         quitButton.addActionListener(e -> System.exit(0));
@@ -178,7 +178,10 @@ public class LibraryGUI extends JFrame {
         // First clear main frame for new Add Book components
         getContentPane().removeAll();
         JButton backButton = new JButton("Back!");
-        backButton.addActionListener(e -> returnToMainScreen());
+        backButton.addActionListener(e -> {
+            returnToMainScreen();
+            displayAllBooks();
+        });
         add(backButton, BorderLayout.NORTH);
 
         JPanel addBookPanel = new JPanel(new GridLayout(5, 2, 10, 10));
@@ -209,8 +212,8 @@ public class LibraryGUI extends JFrame {
             String author = authorField.getText();
             String genre = genreField.getText();
             library.addBook(new Book(title, author, genre));
-            displayAllBooks();
             returnToMainScreen();
+            displayAllBooks();
         });
     }
 
@@ -226,7 +229,10 @@ public class LibraryGUI extends JFrame {
         // First clear main frame for new View Book components
         getContentPane().removeAll();
         JButton backButton = new JButton("Back!");
-        backButton.addActionListener(e -> returnToMainScreen());
+        backButton.addActionListener(e -> {
+            returnToMainScreen();
+            displayAllBooks();
+        });
         add(backButton, BorderLayout.NORTH);
 
         // Create panel to hold library list
@@ -259,7 +265,10 @@ public class LibraryGUI extends JFrame {
         // First clear main frame for new Search Book components
         getContentPane().removeAll();
         JButton backButton = new JButton("Back!");
-        backButton.addActionListener(e -> returnToMainScreen());
+        backButton.addActionListener(e -> {
+            returnToMainScreen();
+            displayAllBooks();
+        });
         add(backButton, BorderLayout.NORTH);
 
         JPanel searchPanel = new JPanel(new GridLayout(7, 2, 10, 10));
@@ -318,7 +327,10 @@ public class LibraryGUI extends JFrame {
         // First clear main frame for new Edit Book components
         getContentPane().removeAll();
         JButton backButton = new JButton("Back!");
-        backButton.addActionListener(e -> returnToMainScreen());
+        backButton.addActionListener(e -> {
+            returnToMainScreen();
+            displayAllBooks();
+        });
         add(backButton, BorderLayout.NORTH);
 
         JPanel editPanel = new JPanel(new GridLayout(10, 2, 10, 10));
@@ -388,6 +400,7 @@ public class LibraryGUI extends JFrame {
     private void loadLibrary() {
         try {
             library = jsonReader.read();
+            bookListModel.clear();
             displayAllBooks();
         } catch (IOException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "System Error",
@@ -401,6 +414,8 @@ public class LibraryGUI extends JFrame {
             jsonWriter.open();
             jsonWriter.write(library);
             jsonWriter.close();
+            JOptionPane.showMessageDialog(null, "Library saved successfully!", "Save Success",
+                    JOptionPane.INFORMATION_MESSAGE);
         } catch (FileNotFoundException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "System Error",
                     JOptionPane.ERROR_MESSAGE);
