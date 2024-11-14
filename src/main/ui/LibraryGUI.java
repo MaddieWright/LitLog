@@ -12,16 +12,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 /**
  * Main GUI for the Library app.
  */
 public class LibraryGUI extends JFrame {
-    private Book book;
     private Library library;
-    private int rating = 0;
-    private boolean validRating = false;
     private JsonWriter jsonWriter;
     private JsonReader jsonReader;
 
@@ -39,8 +35,7 @@ public class LibraryGUI extends JFrame {
     private JButton loadButton;
     private JButton quitButton;
 
-    // Display panel
-    private JPanel libraryPanel;
+    private ImageIcon libraryImage;
 
     // Constructor sets up size, layout, and components.
     public LibraryGUI() {
@@ -78,8 +73,22 @@ public class LibraryGUI extends JFrame {
 
     // Add welcome message and menu options on the left
     private void addWelcomeAndMenu() {
-        JPanel menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(6, 1, 10, 10));
+        String sep = System.getProperty("file.separator");
+        libraryImage = new ImageIcon(System.getProperty("user.dir") + sep
+                + "image" + sep + "litlog.png");
+        Image bgImage = libraryImage.getImage();
+
+        JPanel menuPanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                if (bgImage != null) {
+                    g.drawImage(bgImage, 0, 0, getWidth(), getHeight(), this);
+                }
+            }
+        };
+
+        menuPanel.setLayout(new GridLayout(17, 1, 8, 8));
 
         JLabel welcomeLabel = new JLabel("Welcome to LitLog!", SwingConstants.CENTER);
         welcomeLabel.setFont(new Font("Calibri", Font.BOLD, 18));
@@ -95,7 +104,7 @@ public class LibraryGUI extends JFrame {
         menuPanel.add(searchBooksButton);
         menuPanel.add(editBooksButton);
 
-        add(menuPanel, BorderLayout.WEST);
+        add(menuPanel);
 
         // Add action listeners for menu button options
         addBookButton.addActionListener(new ActionListener() {
@@ -131,8 +140,6 @@ public class LibraryGUI extends JFrame {
         bookList = new JList<>(bookListModel);
         JScrollPane scrollPane = new JScrollPane(bookList);
         libraryPanel.add(scrollPane, BorderLayout.CENTER);
-
-        // libraryPanel.add(); add view books here
 
         add(libraryPanel, BorderLayout.EAST);
     }
