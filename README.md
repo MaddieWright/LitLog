@@ -20,8 +20,8 @@ Some features and specific tasks I would like to accomplish as a **user** with t
 - You can generate the first required action related to the user story "adding multiple Xs to a Y" by clicking on the **Add Book** menu button.
 - You can generate the second required action related to the user story "list all the Xs in my Y" by clicking on the **View All Books** menu button.
 - You can generate the third action related to the user story, marking a book complete with a review and rating, by clicking on the **Edit Books** menu button.
-You can generate the fourth action related to the user story, searching library by author or genre, by clicking on the **Search Books** menu button.
-- You can locate my visual component by looking at the top left corner of the application for the logo.
+- You can generate the fourth action related to the user story, searching library by author or genre, by clicking on the **Search Books** menu button.
+- My visual component is a background image located on the menu panel.
 - You can save the state of my application by clicking on the **Save** button located at the bottom of the application.
 - You can reload the state of my application by clicking on the **Load** button located at the bottom of the application.
  
