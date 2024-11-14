@@ -36,6 +36,7 @@ public class LibraryGUI extends JFrame {
     private JButton quitButton;
 
     private ImageIcon libraryImage;
+    private Color rgbColor = new Color(253, 253, 150);
 
     // Constructor sets up size, layout, and components.
     public LibraryGUI() {
@@ -43,6 +44,7 @@ public class LibraryGUI extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(800, 600);
         setLayout(new BorderLayout());
+        getContentPane().setBackground(rgbColor);
 
         // Create components
         addHeader();
@@ -146,6 +148,7 @@ public class LibraryGUI extends JFrame {
         JLabel libraryLabel = new JLabel("My Library", SwingConstants.CENTER);
         libraryLabel.setFont(new Font("Calibri", Font.BOLD, 18));
         libraryPanel.add(libraryLabel, BorderLayout.NORTH);
+        libraryPanel.setBackground(Color.WHITE);
 
         bookListModel = new DefaultListModel<>();
         bookList = new JList<>(bookListModel);
@@ -159,6 +162,7 @@ public class LibraryGUI extends JFrame {
     private void addBottomButtons() {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout());
+        bottomPanel.setBackground(rgbColor);
 
         saveButton = new JButton("Save");
         loadButton = new JButton("Load");
@@ -185,18 +189,23 @@ public class LibraryGUI extends JFrame {
     }
 
     // Method to open Add Book screen and include "Back" button
+    @SuppressWarnings("methodlength")
     private void openAddBookScreen() {
         // First clear main frame for new Add Book components
         getContentPane().removeAll();
         doBackButton();
 
         JPanel addBookPanel = new JPanel(new GridLayout(5, 2, 10, 10));
+        addBookPanel.setBackground(rgbColor);
 
         JLabel titleLabel = new JLabel("Title:");
+        titleLabel.setFont(new Font("Calibri", Font.BOLD, 18));
         JTextField titleField = new JTextField();
         JLabel authorLabel = new JLabel("Author:");
+        authorLabel.setFont(new Font("Calibri", Font.BOLD, 18));
         JTextField authorField = new JTextField();
         JLabel genreLabel = new JLabel("Genre:");
+        genreLabel.setFont(new Font("Calibri", Font.BOLD, 18));
         JTextField genreField = new JTextField();
         JButton submitButton = new JButton("Add Book");
 
@@ -245,7 +254,8 @@ public class LibraryGUI extends JFrame {
         // Create panel to hold library list
         JPanel libraryPanel = new JPanel(new BorderLayout());
         JLabel libraryLabel = new JLabel("My Library", SwingConstants.CENTER);
-        libraryLabel.setFont(new Font("Calibri", Font.BOLD, 18));
+        libraryPanel.setBackground(rgbColor);
+        libraryLabel.setFont(new Font("Calibri", Font.BOLD, 25));
         libraryPanel.add(libraryLabel, BorderLayout.NORTH);
 
         // Initialize bookListModel and bookList for displaying books
@@ -268,18 +278,22 @@ public class LibraryGUI extends JFrame {
     }
 
     // Method to open Search Books screen and include "Back" button
+    @SuppressWarnings("methodlength")
     private void openSearchBooksScreen() {
         // First clear main frame for new Search Book components
         getContentPane().removeAll();
         doBackButton();
 
         JPanel searchPanel = new JPanel(new GridLayout(7, 2, 10, 10));
+        searchPanel.setBackground(rgbColor);
 
         JLabel authorLabel = new JLabel("Search by Author:");
+        authorLabel.setFont(new Font("Calibri", Font.BOLD, 18));
         JTextField authorField = new JTextField();
         JButton authorSearchButton = new JButton("Search");
 
         JLabel genreLabel = new JLabel("Search by Genre:");
+        genreLabel.setFont(new Font("Calibri", Font.BOLD, 18));
         JTextField genreField = new JTextField();
         JButton genreSearchButton = new JButton("Search");
 
@@ -345,12 +359,16 @@ public class LibraryGUI extends JFrame {
         doBackButton();
 
         JPanel editPanel = new JPanel(new GridLayout(10, 2, 10, 10));
+        editPanel.setBackground(rgbColor);
 
         JLabel bookLabel = new JLabel("Enter Book Title to Edit:");
+        bookLabel.setFont(new Font("Calibri", Font.BOLD, 18));
         JTextField bookField = new JTextField();
         JButton completeButton = new JButton("Complete");
         JLabel bookReview = new JLabel("Enter Review below:");
+        bookReview.setFont(new Font("Calibri", Font.BOLD, 18));
         JLabel bookRating = new JLabel("Enter Rating below:");
+        bookRating.setFont(new Font("Calibri", Font.BOLD, 18));
         JTextField reviewField = new JTextField();
         JTextField rateField = new JTextField();
         JButton startButton = new JButton("Start Book");
@@ -358,11 +376,11 @@ public class LibraryGUI extends JFrame {
 
         editPanel.add(bookLabel);
         editPanel.add(bookField);
-        editPanel.add(completeButton);
         editPanel.add(bookReview);
         editPanel.add(reviewField);
         editPanel.add(bookRating);
         editPanel.add(rateField);
+        editPanel.add(completeButton);
         editPanel.add(startButton);
         editPanel.add(removeButton);
 
