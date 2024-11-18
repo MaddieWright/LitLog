@@ -241,7 +241,7 @@ public class LibraryGUI extends JFrame {
     // Refreshes the list of books displayed
     private void displayAllBooks() {
         for (Book book : library.getBooks()) {
-            bookListModel.addElement(book.toString());
+            bookListModel.addElement(toStringFormat(book));
         }
     }
 
@@ -264,7 +264,7 @@ public class LibraryGUI extends JFrame {
 
         // Add to book list model with all books from the library
         for (Book book : library.getBooks()) {
-            bookListModel.addElement(book.toString());
+            bookListModel.addElement(toStringFormat(book));
         }
 
         // Add book list to a scroll pane and then to libraryPanel
@@ -322,7 +322,7 @@ public class LibraryGUI extends JFrame {
             String author = authorField.getText();
             bookListModel.clear();
             for (Book book : library.findBookByAuthor(author)) {
-                bookListModel.addElement(book.toString());
+                bookListModel.addElement(toStringFormat(book));
             }
         });
 
@@ -330,7 +330,7 @@ public class LibraryGUI extends JFrame {
             String genre = genreField.getText();
             bookListModel.clear();
             for (Book book : library.findBookByGenre(genre)) {
-                bookListModel.addElement(book.toString());
+                bookListModel.addElement(toStringFormat(book));
             }
         });
     }
@@ -479,4 +479,10 @@ public class LibraryGUI extends JFrame {
         repaint();
     }
 
+    // Displays Books in format so that each Book field is on new line
+    public String toStringFormat(Book b) {
+        return "<html>Title: " + b.getTitle() + "<br/>Author: " + b.getAuthor() + "<br/>Genre: " + b.getGenre()
+                + "<br/>Status: " + b.getReadingStatus() + "<br/>Rating: " + b.getRating() + "<br/>Review: "
+                + b.getReview() + "<br/><br/>";
+    }
 }
