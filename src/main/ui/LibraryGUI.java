@@ -38,7 +38,7 @@ public class LibraryGUI extends JFrame {
     private ImageIcon libraryImage;
     private Color rgbColor = new Color(253, 253, 150);
 
-    // Constructor sets up size, layout, and components.
+    // EFFECTS: Constructor sets up size, layout, and components.
     public LibraryGUI() {
         setTitle("LitLog - A Reader's Best Friend");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,14 +66,14 @@ public class LibraryGUI extends JFrame {
         jsonReader = new JsonReader(JSON_STORE);
     }
 
-    // Add header with title
+    // EFFECTS: Add header with title
     private void addHeader() {
         JLabel headerLabel = new JLabel("LitLog - A Reader's Best Friend", SwingConstants.CENTER);
         headerLabel.setFont(new Font("Calibri", Font.BOLD, 24));
         add(headerLabel, BorderLayout.NORTH);
     }
 
-    // Add welcome message and menu options on the left
+    // EFFECTS: Add welcome message and menu options on the left
     private void addWelcomeAndMenu() {
         JPanel menuPanel = addBackgroundToMenuPanel();
 
@@ -96,7 +96,7 @@ public class LibraryGUI extends JFrame {
         menuActionListeners(addBookButton, viewBooksButton, searchBooksButton, editBooksButton);
     }
 
-    // Add action listeners for menu button options
+    // EFFECTS: Add action listeners for menu button options
     private void menuActionListeners(JButton addBookButton, JButton viewBooksButton, JButton searchBooksButton,
             JButton editBooksButton) {
         addBookButton.addActionListener(new ActionListener() {
@@ -121,7 +121,7 @@ public class LibraryGUI extends JFrame {
         });
     }
 
-    // Sets up menu panel with background image and returns it to
+    // EFFECTS: Sets up menu panel with background image and returns it to
     // addWelcomeAndMenu()
     private JPanel addBackgroundToMenuPanel() {
         String sep = System.getProperty("file.separator");
@@ -142,7 +142,7 @@ public class LibraryGUI extends JFrame {
         return menuPanel;
     }
 
-    // Add library section on the right to display list of books
+    // EFFECTS: Add library section on the right to display list of books
     private void addLibrarySection() {
         JPanel libraryPanel = new JPanel(new BorderLayout());
         JLabel libraryLabel = new JLabel("My Library", SwingConstants.CENTER);
@@ -158,7 +158,7 @@ public class LibraryGUI extends JFrame {
         add(libraryPanel, BorderLayout.EAST);
     }
 
-    // Add Save, Load, and Quit buttons at the bottom
+    // EFFECTS: Add Save, Load, and Quit buttons at the bottom
     private void addBottomButtons() {
         JPanel bottomPanel = new JPanel();
         bottomPanel.setLayout(new FlowLayout());
@@ -174,7 +174,6 @@ public class LibraryGUI extends JFrame {
 
         add(bottomPanel, BorderLayout.SOUTH);
 
-        // Add action listeners for bottom button options
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 saveLibrary();
@@ -188,10 +187,9 @@ public class LibraryGUI extends JFrame {
         quitButton.addActionListener(e -> System.exit(0));
     }
 
-    // Method to open Add Book screen and include "Back" button
+    // EFFECTS: Method to open and set up Add Book screen and include "Back" button
     @SuppressWarnings("methodlength")
     private void openAddBookScreen() {
-        // First clear main frame for new Add Book components
         getContentPane().removeAll();
         doBackButton();
 
@@ -225,7 +223,8 @@ public class LibraryGUI extends JFrame {
         addBooksActionListener(submitButton, titleField, authorField, genreField);
     }
 
-    // Add action listener for openAddBookScreen()
+    // MODIFIES: library
+    // EFFECTS: Add action listener for openAddBookScreen()
     private void addBooksActionListener(JButton submitButton, JTextField titleField, JTextField authorField,
             JTextField genreField) {
         submitButton.addActionListener(e -> {
@@ -238,16 +237,15 @@ public class LibraryGUI extends JFrame {
         });
     }
 
-    // Refreshes the list of books displayed
+    // EFFECTS: Refreshes the list of books displayed
     private void displayAllBooks() {
         for (Book book : library.getBooks()) {
             bookListModel.addElement(toStringFormat(book));
         }
     }
 
-    // Method to open View Books screen and include "Back" button
+    // EFFECTS: Method to open View Books screen and include "Back" button
     private void openViewBooksScreen() {
-        // First clear main frame for new View Book components
         getContentPane().removeAll();
         doBackButton();
 
@@ -258,16 +256,6 @@ public class LibraryGUI extends JFrame {
         libraryLabel.setFont(new Font("Calibri", Font.BOLD, 25));
         libraryPanel.add(libraryLabel, BorderLayout.NORTH);
 
-        // Initialize bookListModel and bookList for displaying books
-        bookListModel = new DefaultListModel<>();
-        bookList = new JList<>(bookListModel);
-
-        // Add to book list model with all books from the library
-        for (Book book : library.getBooks()) {
-            bookListModel.addElement(toStringFormat(book));
-        }
-
-        // Add book list to a scroll pane and then to libraryPanel
         JScrollPane scrollPane = new JScrollPane(bookList);
         libraryPanel.add(scrollPane, BorderLayout.CENTER);
 
@@ -277,10 +265,9 @@ public class LibraryGUI extends JFrame {
         repaint();
     }
 
-    // Method to open Search Books screen and include "Back" button
+    // EFFECTS: Method to open Search Books screen and include "Back" button
     @SuppressWarnings("methodlength")
     private void openSearchBooksScreen() {
-        // First clear main frame for new Search Book components
         getContentPane().removeAll();
         doBackButton();
 
@@ -315,7 +302,7 @@ public class LibraryGUI extends JFrame {
         repaint();
     }
 
-    // Add action listeners for openSearchBooksScreen()
+    // EFFECTS: Add action listeners for openSearchBooksScreen()
     private void searchBookActionListeners(JButton authorSearchButton, JButton genreSearchButton,
             JTextField authorField, JTextField genreField) {
         authorSearchButton.addActionListener(e -> {
@@ -335,7 +322,7 @@ public class LibraryGUI extends JFrame {
         });
     }
 
-    // Set up display panel for result of book search and returns new panel to
+    // EFFECTS: Set up display panel for result of book search and returns new panel to
     // openSearchBooksScreen()
     private JPanel doSearchDisplayPanel() {
         JPanel displayPanel = new JPanel(new BorderLayout());
@@ -351,10 +338,9 @@ public class LibraryGUI extends JFrame {
         return displayPanel;
     }
 
-    // Method to open Edit Books screen and include "Back" button
+    // EFFECTS: Method to open Edit Books screen and include "Back" button
     @SuppressWarnings("methodlength")
     private void openEditBooksScreen() {
-        // First clear main frame for new Edit Book components
         getContentPane().removeAll();
         doBackButton();
 
@@ -391,16 +377,18 @@ public class LibraryGUI extends JFrame {
         editBooksActionListeners(completeButton, startButton, removeButton, bookField, reviewField, rateField);
     }
 
-    // Add action listeners for openEditBooksScreen()
+    // MODIFIES: library, book
+    // EFFECTS: Add action listeners for openEditBooksScreen()
     private void editBooksActionListeners(JButton completeButton, JButton startButton, JButton removeButton,
             JTextField bookField, JTextField reviewField, JTextField rateField) {
         completeButton.addActionListener(e -> {
             Book b = findBook(bookField);
             b.setReadingStatus("completed");
-            String review = reviewField.getText();
-            b.setReview(review);
             int rating = Integer.parseInt(rateField.getText());
             b.setRating(rating);
+            String review = reviewField.getText();
+            b.setReview(review);
+            
             displayAllBooks();
         });
 
@@ -418,7 +406,7 @@ public class LibraryGUI extends JFrame {
         });
     }
 
-    // Method to find book in library given title
+    // EFFECTS: Method to find book in library given title
     private Book findBook(JTextField bookField) {
         String title = bookField.getText();
         Book foundBook = null;
@@ -431,7 +419,7 @@ public class LibraryGUI extends JFrame {
     }
 
     // MODIFIES: this
-    // Method to load library from file
+    // EFFECTS: Method to load library from file
     private void loadLibrary() {
         try {
             library = jsonReader.read();
@@ -443,7 +431,7 @@ public class LibraryGUI extends JFrame {
         }
     }
 
-    // Method to save books to file
+    // EFFECTS: Method to save books to file
     private void saveLibrary() {
         try {
             jsonWriter.open();
@@ -457,7 +445,7 @@ public class LibraryGUI extends JFrame {
         }
     }
 
-    // Method to set up back button
+    // EFFECTS: Method to set up back button
     private void doBackButton() {
         JButton backButton = new JButton("Back!");
         backButton.addActionListener(e -> {
@@ -467,7 +455,7 @@ public class LibraryGUI extends JFrame {
         add(backButton, BorderLayout.NORTH);
     }
 
-    // Method to return to main screen whne "Back" button is selected
+    // EFFECTS: Method to return to main screen when "Back" button is selected
     private void returnToMainScreen() {
         getContentPane().removeAll();
         addHeader();
@@ -479,7 +467,7 @@ public class LibraryGUI extends JFrame {
         repaint();
     }
 
-    // Displays Books in format so that each Book field is on new line
+    // EFFECTS: Displays Books in format so that each Book field is on new line
     public String toStringFormat(Book b) {
         return "<html>Title: " + b.getTitle() + "<br/>Author: " + b.getAuthor() + "<br/>Genre: " + b.getGenre()
                 + "<br/>Status: " + b.getReadingStatus() + "<br/>Rating: " + b.getRating() + "<br/>Review: "
