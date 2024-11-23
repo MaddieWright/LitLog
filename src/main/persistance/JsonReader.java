@@ -1,6 +1,8 @@
 package persistance;
 
 import model.Book;
+import model.Event;
+import model.EventLog;
 import model.Library;
 
 import java.io.IOException;
@@ -25,6 +27,8 @@ public class JsonReader {
     public Library read() throws IOException {
         String jsonData = readFile(source);
         JSONObject jsonObject = new JSONObject(jsonData);
+        EventLog.getInstance().logEvent(new Event("Library loaded from file"));
+
         return parseLibrary(jsonObject);
     }
 
