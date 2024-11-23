@@ -2,7 +2,9 @@ package ui;
 
 import javax.swing.*;
 
+import exception.LogException;
 import model.Book;
+import model.EventLog;
 import model.Library;
 import persistance.JsonReader;
 import persistance.JsonWriter;
@@ -12,6 +14,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import javax.swing.JOptionPane;
 
 /**
  * Main GUI for the Library app.
@@ -41,7 +48,7 @@ public class LibraryGUI extends JFrame {
     // EFFECTS: Constructor sets up size, layout, and components.
     public LibraryGUI() {
         setTitle("LitLog - A Reader's Best Friend");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         setSize(800, 600);
         setLayout(new BorderLayout());
         getContentPane().setBackground(rgbColor);
@@ -55,6 +62,21 @@ public class LibraryGUI extends JFrame {
         setVisible(true);
 
         init();
+
+        // Add WindowListener to handle application exit and print event log
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                try {
+                    LogPrinter lp = new ConsolePrinter(); // LogPrinter for console
+                    lp.printLog(EventLog.getInstance());
+                } catch (LogException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "System Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                System.exit(0);
+            }
+        });
     }
 
     // MODIFIES: this
@@ -184,7 +206,18 @@ public class LibraryGUI extends JFrame {
                 loadLibrary();
             }
         });
-        quitButton.addActionListener(e -> System.exit(0));
+        quitButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    LogPrinter lp = new ConsolePrinter(); // LogPrinter for console
+                    lp.printLog(EventLog.getInstance());
+                } catch (LogException ex) {
+                    JOptionPane.showMessageDialog(null, ex.getMessage(), "System Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
+                System.exit(0);
+            }
+        });
     }
 
     // EFFECTS: Method to open and set up Add Book screen and include "Back" button
@@ -322,7 +355,8 @@ public class LibraryGUI extends JFrame {
         });
     }
 
-    // EFFECTS: Set up display panel for result of book search and returns new panel to
+    // EFFECTS: Set up display panel for result of book search and returns new panel
+    // to
     // openSearchBooksScreen()
     private JPanel doSearchDisplayPanel() {
         JPanel displayPanel = new JPanel(new BorderLayout());
@@ -388,7 +422,7 @@ public class LibraryGUI extends JFrame {
             b.setRating(rating);
             String review = reviewField.getText();
             b.setReview(review);
-            
+
             displayAllBooks();
         });
 
