@@ -19,17 +19,20 @@ public class Library implements Writable {
     // MODIFIES: this
     // EFFECTS: adds a new book to the collection of books
     public void addBook(Book book) {
+        EventLog.getInstance().logEvent(new Event("Added book to Library."));
         bookList.add(book);
     }
 
     // MODIFIES: this
     // EFFECTS: removes book from the collection of books
     public void removeBook(Book book) {
+        EventLog.getInstance().logEvent(new Event("Removed book to Library."));
         bookList.remove(book);
     }
 
     // Returns a list of all books in library
     public List<Book> getBooks() {
+        EventLog.getInstance().logEvent(new Event("Display books in Library."));
         return bookList;
     }
 
@@ -41,6 +44,7 @@ public class Library implements Writable {
                 genreList.add(book);
             }
         }
+        EventLog.getInstance().logEvent(new Event("Search books in Library for " + genre + " genre."));
 
         return genreList;
     }
@@ -53,6 +57,7 @@ public class Library implements Writable {
                 authorList.add(book);
             }
         }
+        EventLog.getInstance().logEvent(new Event("Search books in Library for " + author + " author."));
 
         return authorList;
     }

@@ -23,7 +23,7 @@ public class Book implements Writable {
         this.genre = genre;
         this.readingStatus = "not started"; // defualt status
         this.rating = -1; // default for rating value
-        this.review = ""; // default epmty review
+        this.review = ""; // default empty review
     }
 
     // Returns title of book
@@ -60,18 +60,21 @@ public class Book implements Writable {
     // EFFECTS: changes the title of book
     public void setTitle(String title) {
         this.title = title;
+        EventLog.getInstance().logEvent(new Event("Changed title to book."));
     }
 
     // MODIFIES: this
     // EFFECTS: changes the genre of book
     public void setGenre(String genre) {
         this.genre = genre;
+        EventLog.getInstance().logEvent(new Event("Changed genre to book."));
     }
 
     // MODIFIES: this
     // EFFECTS: changes the author of book
     public void setAuthor(String author) {
         this.author = author;
+        EventLog.getInstance().logEvent(new Event("Changed author to book."));
     }
 
     // REQUIRES: status to be one of: "not started", "started", or "completed"
@@ -79,12 +82,18 @@ public class Book implements Writable {
     // EFFECTS: changes the reading status of book
     public void setReadingStatus(String readingStatus) {
         this.readingStatus = readingStatus;
+        if (readingStatus.equals("completed")) {
+            EventLog.getInstance().logEvent(new Event("Completed book."));
+        } else {
+            EventLog.getInstance().logEvent(new Event("Started book."));
+        }
     }
 
     // MODIFIES: this
     // EFFECTS: sets the review of book
     public void setReview(String review) {
         this.review = review;
+        EventLog.getInstance().logEvent(new Event("Changed review to book."));
     }
 
     // REQUIRES: rating of book to be between 1 and 5
@@ -92,6 +101,7 @@ public class Book implements Writable {
     // EFFECTS: sets the rating of book
     public void setRating(int rating) {
         this.rating = rating;
+        EventLog.getInstance().logEvent(new Event("Changed rating to book."));
     }
 
     // MODIFIES: this
@@ -103,6 +113,7 @@ public class Book implements Writable {
         this.setGenre(newGenre);
         this.setRating(newRating);
         this.setReview(newReview);
+        EventLog.getInstance().logEvent(new Event("Editing book."));
     }
 
     // Override toString() for displaying book details
