@@ -83,8 +83,8 @@ public class Book implements Writable {
     public void setReadingStatus(String readingStatus) {
         this.readingStatus = readingStatus;
         if (readingStatus.equals("completed")) {
-            EventLog.getInstance().logEvent(new Event("Completed book."));
-        } else {
+            EventLog.getInstance().logEvent(new Event("Completed book, adding review and rating."));
+        } else if (readingStatus.equals("started")) {
             EventLog.getInstance().logEvent(new Event("Started book."));
         }
     }
@@ -93,7 +93,6 @@ public class Book implements Writable {
     // EFFECTS: sets the review of book
     public void setReview(String review) {
         this.review = review;
-        EventLog.getInstance().logEvent(new Event("Changed review to book."));
     }
 
     // REQUIRES: rating of book to be between 1 and 5
@@ -101,7 +100,6 @@ public class Book implements Writable {
     // EFFECTS: sets the rating of book
     public void setRating(int rating) {
         this.rating = rating;
-        EventLog.getInstance().logEvent(new Event("Changed rating to book."));
     }
 
     // MODIFIES: this
