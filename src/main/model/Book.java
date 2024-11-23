@@ -59,22 +59,23 @@ public class Book implements Writable {
     // MODIFIES: this
     // EFFECTS: changes the title of book
     public void setTitle(String title) {
+        String temp = this.title;
         this.title = title;
-        EventLog.getInstance().logEvent(new Event("Changed title to book."));
+        EventLog.getInstance().logEvent(new Event("Changed title of '" + temp + "' to '" + title + "'"));
     }
 
     // MODIFIES: this
     // EFFECTS: changes the genre of book
     public void setGenre(String genre) {
         this.genre = genre;
-        EventLog.getInstance().logEvent(new Event("Changed genre to book."));
+        EventLog.getInstance().logEvent(new Event("Changed genre of '" + title + "' to " + genre));
     }
 
     // MODIFIES: this
     // EFFECTS: changes the author of book
     public void setAuthor(String author) {
         this.author = author;
-        EventLog.getInstance().logEvent(new Event("Changed author to book."));
+        EventLog.getInstance().logEvent(new Event("Changed author of '" + title + "' to " + author));
     }
 
     // REQUIRES: status to be one of: "not started", "started", or "completed"
@@ -83,9 +84,11 @@ public class Book implements Writable {
     public void setReadingStatus(String readingStatus) {
         this.readingStatus = readingStatus;
         if (readingStatus.equals("completed")) {
-            EventLog.getInstance().logEvent(new Event("Completed book, adding review and rating."));
+            EventLog.getInstance()
+                    .logEvent(new Event("Marked Book as completed: '" + title + "' with rating " + rating
+                            + "/5 and review: " + review));
         } else if (readingStatus.equals("started")) {
-            EventLog.getInstance().logEvent(new Event("Started book."));
+            EventLog.getInstance().logEvent(new Event("Marked Book as started: " + title + "'"));
         }
     }
 
@@ -106,12 +109,14 @@ public class Book implements Writable {
     // EFFECTS: edits book given by user
     public void editBook(String newTitle, String newAuthor,
             String newGenre, int newRating, String newReview) {
+        String tempTitle = title;
+        String tempAuthor = author;
         this.setTitle(newTitle);
         this.setAuthor(newAuthor);
         this.setGenre(newGenre);
         this.setRating(newRating);
         this.setReview(newReview);
-        EventLog.getInstance().logEvent(new Event("Editing book."));
+        EventLog.getInstance().logEvent(new Event("Edited Book: '" + tempTitle + "' by" + tempAuthor));
     }
 
     // Override toString() for displaying book details

@@ -21,7 +21,7 @@ class ConsolePrinter implements LogPrinter {
     public void printLog(EventLog log) {
         System.out.println("Application Event Log:");
         for (Event event : log) {
-            System.out.println(event.getDescription());
+            System.out.println(event.toString());
         }
     }
 }

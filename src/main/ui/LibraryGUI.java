@@ -417,11 +417,11 @@ public class LibraryGUI extends JFrame {
             JTextField bookField, JTextField reviewField, JTextField rateField) {
         completeButton.addActionListener(e -> {
             Book b = findBook(bookField);
-            b.setReadingStatus("completed");
             int rating = Integer.parseInt(rateField.getText());
             b.setRating(rating);
             String review = reviewField.getText();
             b.setReview(review);
+            b.setReadingStatus("completed");
 
             displayAllBooks();
         });
