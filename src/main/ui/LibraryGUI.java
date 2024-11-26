@@ -63,7 +63,11 @@ public class LibraryGUI extends JFrame {
 
         init();
 
-        // Add WindowListener to handle application exit and print event log
+        addWindowListener();
+    }
+
+    // EFFECTS: Add WindowListener to handle application exit and print event log
+    private void addWindowListener() {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -196,6 +200,11 @@ public class LibraryGUI extends JFrame {
 
         add(bottomPanel, BorderLayout.SOUTH);
 
+        addBottomActionListeners();
+    }
+
+    // EFFECTS: Add action listeners for bottom buttons
+    private void addBottomActionListeners() {
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 saveLibrary();
@@ -421,6 +430,7 @@ public class LibraryGUI extends JFrame {
             b.setRating(rating);
             String review = reviewField.getText();
             b.setReview(review);
+
             b.setReadingStatus("completed");
 
             displayAllBooks();

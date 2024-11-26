@@ -20,14 +20,16 @@ public class Library implements Writable {
     // EFFECTS: adds a new book to the collection of books
     public void addBook(Book book) {
         bookList.add(book);
-        EventLog.getInstance().logEvent(new Event("Added Book to Library: '" + book.getTitle() + "' by " + book.getAuthor()));
+        EventLog.getInstance()
+                .logEvent(new Event("Added Book to Library: '" + book.getTitle() + "' by " + book.getAuthor()));
     }
 
     // MODIFIES: this
     // EFFECTS: removes book from the collection of books
     public void removeBook(Book book) {
         bookList.remove(book);
-        EventLog.getInstance().logEvent(new Event("Removed Book in Library: " + book.getTitle() + "' by " + book.getAuthor()));
+        EventLog.getInstance()
+                .logEvent(new Event("Removed Book in Library: " + book.getTitle() + "' by " + book.getAuthor()));
     }
 
     // Returns a list of all books in library
